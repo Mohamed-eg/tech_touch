@@ -5,25 +5,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 body {
   @apply leading-[normal] m-0;
 }
+
 *,
 ::before,
 ::after {
 
   box-sizing: border-box;
 }
-.bg-red{
+
+.bg-red {
   background: red;
 }
-.bg-green{
+
+.bg-green {
   background: green;
 }
-.bg-blue{
+
+.bg-blue {
   background: blue;
 }
-.bg-yellow{
+
+.bg-yellow {
   background: yellow;
 }
-
