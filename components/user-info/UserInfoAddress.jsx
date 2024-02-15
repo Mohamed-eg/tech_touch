@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation';
 function UserInfoAddress() {
   const searchParams = useSearchParams();
   const userID = searchParams.get('uid');
-  const [mydate,setData]=useState([])
+  const [mydata,setData]=useState([])
 
   const getmydata = async () => {
     console.log(userID)
@@ -39,12 +39,12 @@ function UserInfoAddress() {
           </tr>
         </thead>
         <tbody class="table-group-divider">
-      {mydate?.map((order)=>{return( 
-         <tr>
-            <th scope="row">{order.id}</th>
-            <td>{order.data}</td>
-            <td>{order.price}</td>
-            <td>{order.completed}</td>
+      {mydata?.map((order)=>{return( 
+         <tr key={order?.id}>
+            <th scope="row">{order?.id}</th>
+            <td>{order?.data}</td>
+            <td>{order?.price}</td>
+            <td>{order?.completed}</td>
             <td>
               <a href="#">Order Details</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <a href="#">Reorder</a>

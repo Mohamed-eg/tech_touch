@@ -88,7 +88,7 @@ const Cart = (params: any) => {
       getmycart().then((res) => {
         console.log(res)
         setMyCart(res)
-        setCart({ data: res })
+        // setCart({ data: res })
         console.log(cart)
       })
       // removeItem(id)
@@ -96,7 +96,7 @@ const Cart = (params: any) => {
       // setCart(cart)
       // console.log(cart)
     })
-    // dispatch(removeItem({ id }))
+    dispatch(removeItem({ id }))
   }
   const handelIncrease = (productId: any, quantity: any) => {
     const newQuantity = `${parseInt(quantity) + 1}`

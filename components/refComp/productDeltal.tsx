@@ -209,7 +209,7 @@ const ProductDeltal = (producDeta: any) => {
               <div className=" rounded-xl flex items-center justify-center mr-5 bg-slate-100"><Image className="w-full h-[100%] object-cover rounded-lg" alt="product" width={120} height={120} src={myproduct?.colors[0]?.images[4]}></Image></div>
             </div>
             <div className="w-[75%] rounded-xl flex justify-center items-center bg-slate-100 m-5">
-              <Image className="w-full h-[446px] object-cover rounded-xl " alt="product" width={446} height={315} src={myproduct?.colors[0]?.images[0]}></Image>
+              <Image className="w-full h-[100%] object-cover rounded-xl " alt="product" width={446} height={315} src={myproduct?.colors[0]?.images[0]}></Image>
             </div>
           </div>
           <div className="flex flex-col items-start justify-start ml-16 w-[30%] text-black">
@@ -245,7 +245,7 @@ const ProductDeltal = (producDeta: any) => {
                 </div>
                 <div>
                   <button type="submit" className="bg-blue cursor-pointer hover:bg-primary1 text-white rounded-xl mx-2 px-10 py-3 border-none outline-none">Add to cart</button>
-                  <button type="button" className={`rounded-lg bg-white border p-2 border-[#eee] hover:shadow-lg cursor-pointer outline-none ${myList.find((p: any) => p.productId === myproduct.id) ? "loved" : "unloved"} `}><FontAwesomeIcon
+                  <button type="button" className={`rounded-lg bg-white border p-2 border-[#eee] hover:shadow-lg cursor-pointer outline-none ${myList?.find((p: any) => p.productId === myproduct.id) ? "loved" : "unloved"} `}><FontAwesomeIcon
                     onClick={(mouse_event, id = randomeId, productId = myproduct.id, productData = { title: myproduct.title, userPrice: myproduct.userPrice, colors: myproduct.colors }, List = myList) => {
                       userId && dispatch(addToList({ id, productId, productData, userId: userId, List }))
                     }}
@@ -296,7 +296,7 @@ const ProductDeltal = (producDeta: any) => {
 
                       <FontAwesomeIcon onClick={(mouse_event, id = randomeId, productId = product.id, productData = { title: product.title, userPrice: product.prise, colors: product.colors }, List = myList) => {
                         userId && dispatch(addToList({ id, productId, productData, userId: userId, List }))
-                      }} icon={faHeart} className={`w-[18px] ${myList.find((p: any) => p.productId === product.id) ? "loved" : "unloved"} cursor-pointer h-[18px] absolute right-2 top-2 text-[#bcbbbb] bg-white p-2 rounded-full`} />
+                      }} icon={faHeart} className={`w-[18px] ${myList?.find((p: any) => p.productId === product.id) ? "loved" : "unloved"} cursor-pointer h-[18px] absolute right-2 top-2 text-[#bcbbbb] bg-white p-2 rounded-full`} />
                       <Link href={`/productDeta/id?id=${product.id}`}>
                         <Image width={344} height={250} alt="img" src={product.colors[0]?.images[0]} className="w-full h-[250px]  object-cover" />
                         <div className={`w-[51px] h-[26px] absolute top-2 left-2 rounded-lg text-white text-center leading-[26px] bg-scondry ${!product.isNew && "hidden"} `}>new</div>
