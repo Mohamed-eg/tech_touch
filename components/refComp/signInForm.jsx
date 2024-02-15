@@ -1,56 +1,95 @@
 "use client";
-import { useState } from "react";
-import {
-  Flex,
-  Box,
-  FormControl,
-  FormLabel,
-  Input,
-  Button,
-  useColorModeValue,
-  Link,
-  FormHelperText,
-  FormErrorMessage,
-} from "@chakra-ui/react";
+import { BsFillShieldLockFill, BsTelephoneFill } from "react-icons/bs";
+import { CgSpinner } from "react-icons/cg";
+
+import OtpInput from "otp-input-react";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import React,{ useEffect, useState } from "react";
+import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import { toast, Toaster } from "react-hot-toast";
 import Image from "next/image";
 import LogImg from "../../public/background@2x.png";
-import lock from "../../public/icons/Lock.svg";
-import send from "../../public/icons/Send.svg";
-import message from "../../public/icons/Message.svg";
-import { auth } from "../../src/firebase/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+// import lock from "../../public/icons/Lock.svg";
+// import send from "../../public/icons/Send.svg";
+// import message from "../../public/icons/Message.svg";
+import {auth} from "../../src/firebase/firebase";
 import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { setCurrentUser } from "../../src/redux/slices/categoriesSlice";
+// import { useRouter } from "next/navigation";
 export default function SignIn() {
-  const [rong,setRong]=useState("")
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
-  const router = useRouter();
-  const bg = useColorModeValue("gray.100", "gray.700");
-  const color = useColorModeValue("gray.700", "gray.100");
-  const isError = email === "";
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(`User ${user.email} signed in with UID ${user.uid}`);
-        // Redirect to the home page, update the UI, etc.
-        router.push("/");
-      })
-      .catch((error) => {
-        console.error("Error signing in:", error);
-        error?setRong('invaled Email or password'):null;
-        // Handle the error, show an error message, etc.
-      });
-    // console.log(email, password, rememberMe);
-  };
+  const router =useRouter()
+    const [otp, setOtp] = useState("");
+    const [ph, setPh] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [showOTP, setShowOTP] = useState(false);
+    const [user, setUser] = useState(null);
+  
+    const onCaptchVerify=()=>{
+      if (!window.recaptchaVerifier) {
+        window.recaptchaVerifier = new RecaptchaVerifier(
+          auth,
+          "recaptcha-container",
+          {
+            size: "invisible",
+            callback: (response) => {
+              onSignup();
+            },
+            "expired-callback": () => {},
+          }
+        );
+      }
+    }
+    useEffect(
+      ()=>{
+        onCaptchVerify()
+      }
+    ,[auth])
+  
+    function onSignup() {
+      setLoading(true);
+      onCaptchVerify();
+  
+      const appVerifier = window.recaptchaVerifier;
+  
+      const formatPh = "+" + ph;
+  
+      signInWithPhoneNumber(auth, formatPh, appVerifier)
+        .then((confirmationResult) => {
+          window.confirmationResult = confirmationResult;
+          setLoading(false);
+          setShowOTP(true);
+          toast.success("OTP sended successfully!");
+        })
+        .catch((error) => {
+          console.log(error);
+          setLoading(false);
+        });
+    }
+  
+    function onOTPVerify() {
+      setLoading(true);
+      window.confirmationResult
+        .confirm(otp)
+        .then(async (res) => {
+          console.log(res.user.uid);
+          setCurrentUser(res.user.uid);
+          setUser(res.user);
+          setLoading(false);
+          router.push('/')
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoading(false);
+        });
+    }
 
   return (
-    <div className=" mt-[150px] flex flex-row-reverse items-center justify-between">
-      <div className="w-[50%] relative">
+    <div className=" mt-[150px] bg-white flex flex-row-reverse items-center justify-between">
+      <div className=" relative">
         <Image
-          className="relative"
+          className="relative w-full h-[60vh]"
           src={LogImg}
           alt="shop"
           width={screen.width / 2}
@@ -59,118 +98,76 @@ export default function SignIn() {
         <div className="img-shadow w-full top-0 right-0 min-h-full z-10"></div>
       </div>
 
-      <div className="flex items-center justify-center w-full text-black">
-        <Flex
-          className=""
-          minH={"80vh"}
-          align={"center"}
-          justify={"center"}
-          bg={bg}>
-          <Box
-            borderWidth={1}
-            px={4}
-            py={6}
-            shadow={"md"}
-            borderColor={useColorModeValue("gray.200", "gray.700")}
-            bg={useColorModeValue("white", "gray.900")}
-            color={color}
-            rounded={"lg"}
-            w={{ base: "90%", md: 480, lg: 640 }}>
-            <Box textAlign={"center"}>
-              <Link href={"/"}>
-                <Image
-                  className="mb-6"
-                  src={require("../../public/touch-tech-logo-final-2@2x.png")}
-                  alt="logo"
-                  width={319}
-                  height={220}
-                />
-              </Link>
-              <h1 className="my-2" fontSize={"2xl"}>
-                Sign In Now
-              </h1>
-              <p className="my-2 mb-10">Enter your details below.</p>
-            </Box>
-            <Box my={8} textAlign="left">
-              <form onSubmit={handleSubmit}>
-                <FormControl className="my-6 " isRequired>
-                  <FormLabel className="formlabel relative">
-                    Email address
-                  </FormLabel>
-                  <div className="w-full div-shadow rounded-md flex flex-row items-center justify-between px-2">
-                    <Input
-                      className="mt-1 block w-[80%] bg-[#56165000] border-none outline-none sm:text-sm focus:ring-0 focus:ring-offset-0"
-                      name="email"
-                      type="email"
-                      placeholder="Enter your email address"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <Image className="formIcon" alt="message" src={message} />
-                  </div>
-                  {!isError ? (
-                    <FormHelperText className=" absolute text-red top-24 left-0">
-                      Enter the email.
-                    </FormHelperText>
-                  ) : (
-                    <FormErrorMessage className=" absolute text-red top-24 left-0">
-                      Email is required.
-                    </FormErrorMessage>
+      <section className=" w-full m-0 p-0 flex items-center justify-center ">
+      <div className="h-[400px] w-[400px] flex items-center justify-center overflow-hidden  bg-primary1 rounded-full">
+        <Toaster toastOptions={{ duration: 4000 }} />
+        <div id="recaptcha-container"></div>
+        {user ? (
+          <h2 className="text-center text-white font-medium text-2xl">
+            👍Login Success
+          </h2>
+        ) : (
+          <div className="w-80 flex flex-col gap-4 rounded-lg p-4">
+            <h1 className="text-center leading-normal text-white font-medium text-3xl mb-6">
+              Welcome to <br /><span className="text-[40px]">Tech Touch</span> 
+            </h1>
+            {showOTP ? (
+              <>
+                <div className="bg-white text-emerald-500 w-fit mx-auto p-4 rounded-full">
+                  <BsFillShieldLockFill size={30} />
+                </div>
+                <label
+                  htmlFor="otp"
+                  className="font-bold text-xl text-white text-center"
+                >
+                  Enter your OTP
+                </label>
+                <OtpInput
+                  value={otp}
+                  onChange={setOtp}
+                  OTPLength={6}
+                  otpType="number"
+                  disabled={false}
+                  autoFocus
+                  className="opt-container "
+                ></OtpInput>
+                <button
+                  onClick={onOTPVerify}
+                  className="bg-emerald-600 w-full flex gap-1 items-center justify-center py-2.5 text-white rounded"
+                >
+                  {loading && (
+                    <CgSpinner size={20} className="mt-1 animate-spin" />
                   )}
-                </FormControl>
-                <FormControl className="my-6 " isRequired mt={6}>
-                  <FormLabel className="formlabel">Password</FormLabel>
-                  <div className="w-full div-shadow rounded-md flex flex-row items-center justify-between px-2">
-                    <Input
-                      className="mt-1 block w-[80%] bg-[#56165000] border-none outline-none sm:text-sm focus:ring-0 focus:ring-offset-0"
-                      name="password"
-                      type="password"
-                      placeholder="Enter your password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <Image className="formIcon" alt="lock" src={lock} />
-                  </div>
-                </FormControl>
-                  <span className={"text-red text-sm"}>{rong}</span>
-                <Flex justifyContent={"space-between"} mt={4}>
-                  <FormControl
-                    className="my-4"
-                    display={"flex"}
-                    alignItems={"center"}>
-                    <Input
-                      className="mr-2 rounded-[4px] border border-[#dcdada] border-solid"
-                      name="rememberMe"
-                      value={rememberMe}
-                      type="checkbox"
-                      isChecked={rememberMe}
-                      onChange={(e) => setRememberMe(e.target.checked)}
-                    />
-                    <FormLabel className="text-black inline w-full m-6" ml={2}>
-                      Remember me
-                    </FormLabel>
-                  </FormControl>
-                  <Link color={"blue.400"} href={"/forgot-password"}>
-                    Forgot password?
-                  </Link>
-                </Flex>
-                <Button
-                  className="w-full bg-primary1 p-2 text-white border-none outline-none cursor-pointer rounded-lg text-xl"
-                  type="submit">
-                  Sign In
-                  <Image className="ml-1" alt="lock" src={send} />
-                </Button>
-              </form>
-              <p mt={6}>
-                Do not have an account?{" "}
-                <Link color={"blue.400"} href={"/signup"}>
-                  Sign Up
-                </Link>
-              </p>
-            </Box>
-          </Box>
-        </Flex>
+                  <span>Verify OTP</span>
+                </button>
+              </>
+            ) : (
+              <>
+                <div className="bg-white text-emerald-500 w-fit mx-auto p-4 rounded-full">
+                  <BsTelephoneFill size={30} />
+                </div>
+                <label
+                  htmlFor=""
+                  className="font-bold text-xl text-white text-center"
+                >
+                  Verify your phone number
+                </label>
+                <PhoneInput country={"il"} value={ph} onChange={setPh} />
+                <button
+                  onClick={onSignup}
+                  className=" bg-[#1070af] w-[50%] flex gap-1 items-center border-none m-auto justify-center py-2.5 text-white rounded"
+                >
+                  {loading && (
+                    <CgSpinner size={20} className="mt-1 animate-spin" />
+                  )}
+                  <span>Send code via SMS</span>
+                </button>
+              </>
+            )}
+          </div>
+        )}
       </div>
+    </section>
     </div>
-  );
+  )
 }

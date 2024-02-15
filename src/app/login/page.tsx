@@ -1,3 +1,4 @@
+'use client'
 import type { NextPage } from "next";
 import FooterComp from '../../../components/footer';
 import MainHeader from '../../../components/main-header';

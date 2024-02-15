@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { auth } from "../../firebase/firebase";
 const uid = auth.currentUser?.uid
-// import { useEffect } from "react";
-// import axios from 'axios';
 
 type StringObject = {
     [key: string]: string | number | boolean | any;
@@ -29,21 +27,6 @@ interface CategoriesState {
     selectedProducts: any
     currentUser: any
 }
-
-// const fetchData = async () => {
-//     try {
-//         const response = await axios.get(`https://backend.touchtechco.com/homeProducts`);
-//         return response.data.data;
-//     } catch (error) {
-//         console.error('Error fetching data:', error);
-//         return null;
-//     }
-// };
-// useEffect(
-//     ()=>{
-//         fetchData().then(data => { console.log(data) });
-//     },[]
-// )
 let statecData = [
     [
         { title: "ASUS FHD Gaming Laptop", shortDesc: "lauren lauren", longDesc: "lauren lauren lauren", categoryId: "computer", id: "1", url: "/ideapadgaming3i01500x500-1@2x.png", middlePrice: 1000, traderprice: 800, userPrice: 700, colors: [{ color: "4281138465.0", images: ["https://picsum.photos/id/432/500/200"] }, { color: "4281138465.0", images: ["https://picsum.photos/id/432/500/200"] }, { color: "4281138465.0", images: ["https://picsum.photos/id/432/500/200"] }, { color: "4281138465.0", images: ["https://picsum.photos/id/432/500/200"] }, { color: "4281138465.0", images: ["https://picsum.photos/id/432/500/200"] }], isLoved: true, ischeaked: true, isNew: true },

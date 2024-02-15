@@ -65,8 +65,8 @@ const listSlice = createSlice({
       state.List = removeItem;
     },
     changAll: (state, action)=>{
-      console.log(action.payload.data)
-      state.List = action.payload.data;
+      console.log(action.payload)
+      state.List = action.payload;
     }
   },
 });

@@ -31,7 +31,8 @@ useEffect(()=>{
 },[])
 
   return (
-    <div className="p-[8vw] relative flex flex-col items-start justify-start gap-[60px] text-left text-5xl text-text font-heading-24px-semibold">
+   <>
+   {data?<div className="p-[8vw] relative flex flex-col items-start justify-start gap-[60px] text-left text-5xl text-text font-heading-24px-semibold">
       <BestSellingProductsCard
         sectionTitle="Featured"
         pageTitle="New Arrival"
@@ -96,18 +97,11 @@ useEffect(()=>{
               />
               <div className="absolute top-[calc(50%_-_112px)] left-[calc(50%_-_105px)]  w-[25%] h-[50%] overflow-hidden" />
             </div>
-                {/* <Image width={190} height={190} alt="img"
-                  className="absolute top-[calc(50%_-_111px)] left-[calc(50%_-_95px)] w-[17vw] h-[18vw] object-cover"
-                  src={circle}
-                />
-              <Image width={190} height={190} alt="img"
-                className="absolute top-[calc(50%_-_119px)] left-[calc(50%_-_119px)] w-[19vw] h-[19vw] object-cover"
-                src={circle}
-              /> */}
           </div>
         </div>
       </div>
-    </div>
+    </div>:null}
+   </>
   );
 };
 

@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../src/firebase/firebase";
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setAllProducts, setCurrentUser } from '../src/redux/slices/categoriesSlice';
 import { setCategories } from '../src/redux/slices/categoriesSlice';
 import { setCart } from '../src/redux/slices/productsSlice';
@@ -22,6 +22,7 @@ import { useSearchParams } from 'next/navigation';
 const HOME = () => {
   const myuser = auth.currentUser
   const dispatch = useDispatch()
+  const uid = useSelector((state: any) => state.categories.currentUser)
   const searchParams = useSearchParams();
   const query = searchParams.get('id');
   const fetchHome = async () => {
@@ -62,24 +63,6 @@ const HOME = () => {
       return null;
     }
   };
-  // const fetchnewArrival = async () => {
-  //   try {
-  //     const response = await axios.get(`https://backend.touchtechco.com/newArrival`);
-  //     return response.data.data;
-  //   } catch (error) {
-  //     console.error('Error fetching data:', error);
-  //     return null;
-  //   }
-  // };
-  // const fetchHighLight = async () => {
-  //   try {
-  //     const response = await axios.get(`https://backend.touchtechco.com/highlight`);
-  //     return response.data.data;
-  //   } catch (error) {
-  //     console.error('Error fetching data:', error);
-  //     return null;
-  //   }
-  // };
   useEffect(() => {
     const userID = myuser?.uid
     fetchHome().then((data: any) => {
@@ -96,14 +79,6 @@ const HOME = () => {
       console.log(data)
       if (data != null) { dispatch(changAll(data)) }
     })
-    // fetchnewArrival().then((data: any) => {
-    //   console.log(data)
-    //   // dispatch(setAllProducts(data))
-    // });
-    // fetchHighLight().then((data: any) => {
-    //   console.log(data)
-    //   // dispatch(setAllProducts(data))
-    // });
     dispatch(setCurrentUser(userID))
   }, [myuser])
 
