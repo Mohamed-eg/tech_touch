@@ -4,7 +4,7 @@ import { useState,useEffect } from "react";
 import classes from "./UserInfoDetail.module.css";
 import { useSearchParams } from 'next/navigation';
 
-function UserInfoDetail() {
+function UserInfoAddress() {
   const searchParams = useSearchParams();
   const userID = searchParams.get('uid');
   const [mydate,setData]=useState([])
@@ -12,7 +12,7 @@ function UserInfoDetail() {
   const getmydata = async () => {
     console.log(userID)
     try {
-      const response = await axios.get(`https://backend.touchtechco.com/userGen?coll=orders&userId=${userID}`);
+      const response = await axios.get(`https://backend.touchtechco.com/userGen?coll=address&userId=${userID}`);
       return response.data.data;
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -31,11 +31,11 @@ function UserInfoDetail() {
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">Order Number</th>
-            <th scope="col">Date</th>
-            <th scope="col">Total Price</th>
-            <th scope="col">Status</th>
-            <th scope="col">Action</th>
+            <th scope="col">Title</th>
+            <th scope="col">Governorate</th>
+            <th scope="col">City</th>
+            <th scope="col">Address</th>
+            <th scope="col">At</th>
           </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -58,4 +58,4 @@ function UserInfoDetail() {
   );
 }
 
-export default UserInfoDetail;
+export default UserInfoAddress;

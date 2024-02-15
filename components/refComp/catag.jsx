@@ -265,8 +265,8 @@ export default function Categorypage() {
                       return (
                         <Link className="m-10 " href={`./home`} key={category.title}>
                         <div className="relative flex flex-col w-[170px] h-[145px] !p-0 items-center cursor-poniter justify-center peer border hover:bg-scondry border-[#0000004d] border-solid rounded-3xl overflow-hidden">
-                          <div className="relative w-full leading-[20px] mt-0 hover:text-white font-semibold">
-                            <Image width={140} height={80} alt="img" src={category.imageLink} className="text-white w-full m-0 h-auto mt-0 rounded-t-lg bg-cover" />
+                          <div className="relative w-full h-full leading-[20px] mt-0 hover:text-white font-semibold">
+                            <Image width={140} height={80} alt="img" src={category.imageLink} className="text-white w-full m-0 h-full mt-0 rounded-t-lg bg-cover" />
                           </div>
                         </div>
                         <p className="text-[#000] m-0 pb-3 peer-hover:text-scondry">{category.title}</p>

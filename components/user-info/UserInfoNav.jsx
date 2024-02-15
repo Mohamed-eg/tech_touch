@@ -1,21 +1,38 @@
+'use client'
 import classes from "./UserInfoNav.module.css";
 import UserInfoNavItem from "./UserInfoNavItem";
 import Link from "next/link";
+import { useSearchParams } from 'next/navigation';
 
 function UserInfoNav(props) {
+  const searchParams = useSearchParams();
+  const userID = searchParams.get('uid');
   return (
-    <aside className={classes.Main}>
-      <ul className="list-group">
+    <aside className="w-[300px] rounded-lg bg-white">
+      <ul className="list-group ">
         <li
-          className={["list-group-item active", classes.backToHomeLi].join(" ")}
-        >
-          <Link href="/">Back to Home</Link>
+          className="rounded-l-lg bg-cyan-700 p-2 "
+        > 
+          <Link className="rounded-lg text-white" href="/">Back to Home</Link>
         </li>
-        <UserInfoNavItem>My Account</UserInfoNavItem>
-        <UserInfoNavItem active>My Orders</UserInfoNavItem>
-        <UserInfoNavItem>Delivery Address</UserInfoNavItem>
-        <UserInfoNavItem>Account Info</UserInfoNavItem>
-        <UserInfoNavItem>Feedbacks</UserInfoNavItem>
+        <UserInfoNavItem active>
+          <Link href={`../../uid?uid=${userID}/DeliveryAddress`}>
+            My Account</Link>
+        </UserInfoNavItem>
+        <UserInfoNavItem>
+          <Link href={`../../uid?uid=${userID}/DeliveryAddress`}>
+            My Orders</Link>
+        </UserInfoNavItem>
+          <UserInfoNavItem>
+                <Link href={`../../uid?uid=${userID}/DeliveryAddress`}>
+            Delivery Address</Link>
+        </UserInfoNavItem>
+          <UserInfoNavItem><Link href={`../../uid?uid=${userID}/DeliveryAddress`}>
+            Account Info</Link>
+        </UserInfoNavItem>
+          <UserInfoNavItem><Link href={`../../uid?uid=${userID}/DeliveryAddress`}>
+            Feedbacks</Link>
+     </UserInfoNavItem>
       </ul>
     </aside>
   );

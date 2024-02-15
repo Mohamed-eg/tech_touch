@@ -195,4 +195,8 @@ a {
 a * {
   text-decoration: none !important;
 }
+
+.scondry_border {
+  border: 2px solid #757575;
+}
 /*# sourceMappingURL=index.css.map */

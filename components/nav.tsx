@@ -120,7 +120,7 @@ const Nav = () => {
               {List?.length ? <span className="bg-[#d61414] absolute top-[-12px] right-[-7px] px-1 text-sm text-white rounded-full ">{List.length || 0}</span> : null}
             </div>
 
-            <div onClick={(e, id = uid) => { router.push(`/${id ? id : "login"}`) }}>
+            <div onClick={(e, id = uid) => { router.push(`/${id ? "uid?uid=" + id : "login"}`) }}>
               <Image alt="img"
                 className="relative w-[2.2vw] h-[2.2vw] max-md:w-[5vw] max-md:h-[5vw] max-w-8 max-h-8 overflow-hidden object-cover max-sm:hidden cursor-pointer"
                 src={userImg}

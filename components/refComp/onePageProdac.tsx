@@ -35,7 +35,7 @@ const OnePageProdac = (props: any) => {
 
                 <FontAwesomeIcon onClick={(mouse_event, id = randomID, productId = product.id, productData = { title: product.title, userPrice: product.userPrice, colors: product.colors }, List = MyList) => {
                   userId && dispatch(addToList({ id, productId, productData, userId: userId, List }))
-                }} icon={faHeart} className={`w-[18px] cursor-pointer ${MyList.find((p: any) => p.productId === product.id) ? "loved" : "unloved"} h-[18px] absolute right-2 top-2 text-[#cfcfcf] bg-white p-2 rounded-full`} />
+                }} icon={faHeart} className={`w-[18px] cursor-pointer ${MyList?.find((p: any) => p.productId === product.id) ? "loved" : "unloved"} h-[18px] absolute right-2 top-2 text-[#cfcfcf] bg-white p-2 rounded-full`} />
                 <Link className=" h-auto w-full object-contain" href={userId ? `/productDeta/id?id=${product.id}` : `./login`}>
                   <div className="object-cover h-auto w-full">
                     <Image alt="img" width={240} height={250} src={product.colors[0].images[0]} className="w-full h-[250px] !rounded-t-lg object-cover " /></div>
