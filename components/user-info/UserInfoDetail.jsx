@@ -40,7 +40,7 @@ function UserInfoDetail() {
         </thead>
         <tbody class="table-group-divider">
       {mydate?.map((order)=>{return( 
-         <tr>
+         <tr key={orde?.id}>
             <th scope="row">{order.id}</th>
             <td>{order.data}</td>
             <td>{order.price}</td>
