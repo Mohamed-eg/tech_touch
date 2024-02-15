@@ -22,7 +22,7 @@ const OnePageProdac = (props: any) => {
   const isoDate = new Date(milliseconds).toISOString();
   console.log(props)
   const dispatch = useDispatch()
-  const List = useSelector((state: any) => state.wishList.List)
+  const MyList = useSelector((state: any) => state.wishList.List)
   const userId = auth.currentUser?.uid
   return (
     <div className="w-full flex flex-row items-center justify-center flex-wrap">
@@ -33,9 +33,9 @@ const OnePageProdac = (props: any) => {
 
               <div className="w-full relative hover: flex flex-col rounded-xl z-0 h-[250px] items-center bg-slate-100 overflow-hidden">
 
-                <FontAwesomeIcon onClick={(mouse_event, id = randomID, productId = product.id, productData = { title: product.title, userPrice: product.prise, colors: product.colors }) => {
-                  userId && dispatch(addToList({ id, productId, productData, userId: userId }))
-                }} icon={faHeart} className={`w-[18px] cursor-pointer ${List.find((p: any) => p.productId === product.id) ? "loved" : "unloved"} h-[18px] absolute right-2 top-2 text-[#cfcfcf] bg-white p-2 rounded-full`} />
+                <FontAwesomeIcon onClick={(mouse_event, id = randomID, productId = product.id, productData = { title: product.title, userPrice: product.userPrice, colors: product.colors }, List = MyList) => {
+                  userId && dispatch(addToList({ id, productId, productData, userId: userId, List }))
+                }} icon={faHeart} className={`w-[18px] cursor-pointer ${MyList.find((p: any) => p.productId === product.id) ? "loved" : "unloved"} h-[18px] absolute right-2 top-2 text-[#cfcfcf] bg-white p-2 rounded-full`} />
                 <Link className=" h-auto w-full object-contain" href={userId ? `/productDeta/id?id=${product.id}` : `./login`}>
                   <div className="object-cover h-auto w-full">
                     <Image alt="img" width={240} height={250} src={product.colors[0].images[0]} className="w-full h-[250px] !rounded-t-lg object-cover " /></div>

@@ -117,7 +117,7 @@ const Nav = () => {
 
             <div className="relative max-sm:hidden text-[21px]">
               <NavItem text="" icon={faHeart} href="/wishList" />
-              {List.length ? <span className="bg-[#d61414] absolute top-[-12px] right-[-7px] px-1 text-sm text-white rounded-full ">{List.length || 0}</span> : null}
+              {List?.length ? <span className="bg-[#d61414] absolute top-[-12px] right-[-7px] px-1 text-sm text-white rounded-full ">{List.length || 0}</span> : null}
             </div>
 
             <div onClick={(e, id = uid) => { router.push(`/${id ? id : "login"}`) }}>
@@ -133,7 +133,7 @@ const Nav = () => {
                 src={buyImg}
                 onClick={onIconsCurvedBuyClick}
               />
-              {cart.length === 0 ? null : <span className="bg-[#d61414] absolute top-[-8px] right-[-5px] px-1 text-white rounded-full ">{cart.length || 0}</span>}
+              {cart?.length === 0 ? null : <span className="bg-[#d61414] absolute top-[-8px] right-[-5px] px-1 text-white rounded-full ">{cart.length || 0}</span>}
             </div>
             <div className="hidden max-sm:block"><Sidebar /></div>
 

@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import axios from "axios"
 import {auth} from "../../firebase/firebase"
 
-const userID = auth.currentUser?.uid
+// const userID = auth.currentUser?.uid
 //   const getmycart = async () => {
 //     try {
 //         console.log(userID)
@@ -14,22 +14,22 @@ const userID = auth.currentUser?.uid
 //       return null;
 //     }
 //   };
-let resalt =[]
+// let resalt =[]
 // getmycart().then((res)=>{resalt=res})
 const cartSlice = createSlice({
     name: 'cart',
     initialState: {
-        cart:resalt ,
+        cart:[] ,
     },
     reducers: {
         addToCart: (state, action) => {
-            console.log(state.cart)
-            const itemInCart = state.cart?.find((item) => item.id === action.payload.id &&item.color ===action.payload.color);
-            if (itemInCart) {
-                itemInCart.quantity=  parseInt(itemInCart.quantity) +1 ;
-            } else {
+            // console.log(state.cart)
+            // const itemInCart = state.cart?.find((item) => item.id === action.payload.id &&item.color ===action.payload.color);
+            // if (itemInCart) {
+            //     itemInCart.quantity=  parseInt(itemInCart.quantity) +1 ;
+            // } else {
                 state.cart.push({ ...action.payload });
-            }
+            // }
         },
         incrementQuantity: (state, action) => {
             const item = state.cart.find((item) => item.id === action.payload);
@@ -44,9 +44,10 @@ const cartSlice = createSlice({
             }
         },
         removeItem: (state, action) => {
-            console.log(action.payload)
-            const remanItems = state.cart.filter((item) => item.id !== action.payload);
-            state.cart = remanItems;
+            console.log(action.payload.id)
+            console.log(state.cart)
+            state.cart = state.cart.filter((item) => item.id !== action.payload.id);
+            console.log(state.cart)
         },
         setCart: (state,action)=>{
             state.cart=action.payload

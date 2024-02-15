@@ -2,7 +2,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 // import { auth } from "../../firebase/firebase";
 import axios from "axios";
-
+import {deleteIt} from "../../app/function"
 import { v4 as uuidv4 } from 'uuid';
 
 const milliseconds = Date.now();
@@ -24,15 +24,6 @@ const randomID =uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
       return null;
     }
   };
- const deletItem = async (id) => {
-    try {
-      const response = await axios.delete(`https://backend.touchtechco.com/gen?coll=wishlist`, {data: id });
-      return response;
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      return null;
-    }
-  };
   
   const handelHartClick = (id,productId,userId) => {
     fetchWish(id,productId,userId).then((response) => {
@@ -41,12 +32,8 @@ const randomID =uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
     });
   }
   // delete the item from data base by his randum ID and delele it from rudex state by his product id
-  const handeldeletitem = (id) => {
-    deletItem(id).then((response) => {
-      console.log(response)
-      console.log(id, isoDate)
-    });
-  }
+  // const handeldeletitem = (myList,productId) => {
+  // }
 
 const listSlice = createSlice({
   name: "wishList",
@@ -60,7 +47,10 @@ const listSlice = createSlice({
       let itemInCart = state.List.find((item) => item.productId === action.payload.productId);
       if (itemInCart) {
         itemInCart = state.List.filter((item) => item.productId !== action.payload.productId); //remove item
-        handeldeletitem(action.payload.id)
+        // handeldeletitem(state.List,action.payload.productId)
+        console.log(action.payload)
+        deleteIt(action.payload.List,action.payload.productId)
+
         state.List = itemInCart;
 
       } else {
@@ -75,7 +65,8 @@ const listSlice = createSlice({
       state.List = removeItem;
     },
     changAll: (state, action)=>{
-      state.List = action.payload;
+      console.log(action.payload.data)
+      state.List = action.payload.data;
     }
   },
 });

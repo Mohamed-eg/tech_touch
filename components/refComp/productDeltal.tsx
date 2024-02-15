@@ -144,14 +144,16 @@ const ProductDeltal = (producDeta: any) => {
   };
   useEffect(() => {
     if (query) {
-      getmyproduct(); // Call the getmyproduct function only if query is truthy
+      getmyproduct().then((res) => {
+        console.log(res)
+      }) // Call the getmyproduct function only if query is truthy
       getSimilarProducts().then((res) => {
         console.log(res)
       }); // Call the getmyproduct function only if query is truthy
     }
   }, [query])
 
-  const postCart = async (id: any, quantity: any, color: any, image: any, name: any, short: any, long: any, price: any) => {
+  const postCart = async (id: any, quantity: any, color: any, image: any, title: any, short: any, long: any, price: any) => {
     console.log(isoDate, uid)
     try {
       const response = await axios.post(
@@ -163,7 +165,7 @@ const ProductDeltal = (producDeta: any) => {
           "color": color,
           "createdAt": isoDate,
           "imageLink": image,
-          "productName": name,
+          "productName": title,
           "shortDesc": short,
           "longDesc": long,
           "currentPrice": price,
@@ -177,7 +179,7 @@ const ProductDeltal = (producDeta: any) => {
       return null;
     }
   };
-  const List = useSelector((state: any) => state.wishList.List)
+  const myList = useSelector((state: any) => state.wishList.List)
   // const myid = producDeta.producDeta.params.id
   const dispatch = useDispatch()
   const AllProducts = useSelector((state: any) => state.categories.allproducts)
@@ -187,11 +189,11 @@ const ProductDeltal = (producDeta: any) => {
   const handelSubmit = (e: any, id: any, quantity: any, color: any, image: any, title: any, short: any, long: any, price: any) => {
     e.preventDefault()
     console.log(id, quantity, color, image, title, short, long, price)
-    quantity > 0 && postCart(id, quantity, color, image, title, short, long, price).then((res) => {
+    quantity > 0 && color && postCart(id, quantity, color, image, title, short, long, price).then((res) => {
       alert(`👍 you have added ${quantity} ${title} with color ${color} to cart 🛒`)
       console.log(res);
     });
-    quantity > 0 && dispatch(addToCart({ id, quantity, title, image, price, color }))
+    quantity > 0 && color && dispatch(addToCart({ id, quantity, color, imageLink: image, title, short, long, currentPrice: price }))
     console.log(cart)
   }
   return (
@@ -216,7 +218,7 @@ const ProductDeltal = (producDeta: any) => {
               <h2 className="text-blue text-xl">{`${parseFloat(myproduct?.userPrice.toFixed(2))} EGP`}</h2>
               <p>{myproduct?.longDesc}</p>
             </div>
-            <form action="" onSubmit={(event) => handelSubmit(event, myproduct?.id, quantity.toString(), color, myproduct?.colors.find((e: any) => e.color === color)?.images[0] || "", myproduct?.title, myproduct?.shortDesc, myproduct?.longDesc, myproduct?.userPrice)}>
+            <form action="" onSubmit={(event) => handelSubmit(event, myproduct?.id, quantity, color, myproduct?.colors.find((e: any) => e.color === color)?.images[0], myproduct?.title, myproduct?.shortDesc, myproduct?.longDesc, myproduct?.userPrice)}>
               <div>
                 <div>
                   <span>Colours</span>
@@ -243,9 +245,9 @@ const ProductDeltal = (producDeta: any) => {
                 </div>
                 <div>
                   <button type="submit" className="bg-blue cursor-pointer hover:bg-primary1 text-white rounded-xl mx-2 px-10 py-3 border-none outline-none">Add to cart</button>
-                  <button type="button" className={`rounded-lg bg-white border p-2 border-[#eee] hover:shadow-lg cursor-pointer outline-none ${List.find((p: any) => p.productId === myproduct.id) ? "loved" : "unloved"} `}><FontAwesomeIcon
-                    onClick={(mouse_event, id = randomeId, productId = myproduct.id, productData = { title: myproduct.title, userPrice: myproduct.userPrice, colors: myproduct.colors }) => {
-                      userId && dispatch(addToList({ id, productId, productData, userId }))
+                  <button type="button" className={`rounded-lg bg-white border p-2 border-[#eee] hover:shadow-lg cursor-pointer outline-none ${myList.find((p: any) => p.productId === myproduct.id) ? "loved" : "unloved"} `}><FontAwesomeIcon
+                    onClick={(mouse_event, id = randomeId, productId = myproduct.id, productData = { title: myproduct.title, userPrice: myproduct.userPrice, colors: myproduct.colors }, List = myList) => {
+                      userId && dispatch(addToList({ id, productId, productData, userId: userId, List }))
                     }}
                     icon={faHeart} className="" /></button>
                 </div>
@@ -292,10 +294,10 @@ const ProductDeltal = (producDeta: any) => {
                   <div className="relative flex flex-col normal-border w-full leading-[20px] font-semibold">
                     <div className="w-full relative hover: flex flex-col rounded-xl z-0 h-[250px] items-center bg-slate-100 overflow-hidden">
 
-                      <FontAwesomeIcon onClick={(mouse_event, id = randomeId, productId = product.id, productData = { title: product.title, userPrice: product.prise, colors: product.colors }) => {
-                        userId && dispatch(addToList({ id, productId, productData, userId: userId }))
-                      }} icon={faHeart} className={`w-[18px] ${List.find((p: any) => p.productId === product.id) ? "loved" : "unloved"} cursor-pointer h-[18px] absolute right-2 top-2 text-[#bcbbbb] bg-white p-2 rounded-full`} />
-                      <Link href={`/productDeta/${product.id}`}>
+                      <FontAwesomeIcon onClick={(mouse_event, id = randomeId, productId = product.id, productData = { title: product.title, userPrice: product.prise, colors: product.colors }, List = myList) => {
+                        userId && dispatch(addToList({ id, productId, productData, userId: userId, List }))
+                      }} icon={faHeart} className={`w-[18px] ${myList.find((p: any) => p.productId === product.id) ? "loved" : "unloved"} cursor-pointer h-[18px] absolute right-2 top-2 text-[#bcbbbb] bg-white p-2 rounded-full`} />
+                      <Link href={`/productDeta/id?id=${product.id}`}>
                         <Image width={344} height={250} alt="img" src={product.colors[0]?.images[0]} className="w-full h-[250px]  object-cover" />
                         <div className={`w-[51px] h-[26px] absolute top-2 left-2 rounded-lg text-white text-center leading-[26px] bg-scondry ${!product.isNew && "hidden"} `}>new</div>
                         <button className="w-[270px] h-[40px] absolute text-white  bottom-[-40px] group-hover:bottom-[0px] z-10 text-xl duration-300 p-1 cursor-pointer bg-scondry border-none flex items-center justify-center flex-row"

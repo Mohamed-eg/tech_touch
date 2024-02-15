@@ -55,7 +55,7 @@ const HOME = () => {
   const getmyList = async (userID: String | undefined) => {
     console.log(userID)
     try {
-      const response = await axios.get(`https://backend.touchtechco.com/userGen?coll=cart&wishlist=${userID}`);
+      const response = await axios.get(`https://backend.touchtechco.com/userGen?coll=wishlist&userId=${userID}`);
       return response.data.data;
     } catch (error) {
       console.error('Error fetching data:', error);

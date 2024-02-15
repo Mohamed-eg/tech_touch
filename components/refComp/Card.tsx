@@ -57,7 +57,7 @@ const Cart = (params: any) => {
   const increase = async (productId: String, quantity: String) => {
     console.log(productId, quantity)
     try {
-      const response = await axios.patch(`https://backend.touchtechco.com/gen?coll=cart&id=${productId}`, {
+      const response = await axios.put(`https://backend.touchtechco.com/gen?coll=cart&id=${productId}`, {
 
         "quantity": quantity
 
@@ -71,7 +71,7 @@ const Cart = (params: any) => {
   const decrease = async (productId: String, quantity: String) => {
     console.log(productId, quantity)
     try {
-      const response = await axios.patch(`https://backend.touchtechco.com/gen?coll=cart&id=${productId}`, {
+      const response = await axios.put(`https://backend.touchtechco.com/gen?coll=cart&id=${productId}`, {
 
         "quantity": quantity
 
@@ -83,11 +83,12 @@ const Cart = (params: any) => {
     }
   }
   const handelDelete = (id: string) => {
-    dispatch(removeItem(id))
-    deleteOne(id).then(() => {
+    deleteOne(id).then((res) => {
+      console.log(res)
       getmycart().then((res) => {
+        console.log(res)
         setMyCart(res)
-        setCart(res)
+        setCart({ data: res })
         console.log(cart)
       })
       // removeItem(id)
@@ -95,6 +96,7 @@ const Cart = (params: any) => {
       // setCart(cart)
       // console.log(cart)
     })
+    // dispatch(removeItem({ id }))
   }
   const handelIncrease = (productId: any, quantity: any) => {
     const newQuantity = `${parseInt(quantity) + 1}`
@@ -159,7 +161,7 @@ const Cart = (params: any) => {
                   </div>
                 </div>
                 {(userID === undefined || null) ? <div className='p-10 text-primary1 w-full text-[21px] text-center hover:text-[#199aeb]'><Link href="/login">please log in🔑</Link> </div> : null}
-                {mycart?.map((product: any) => {
+                {cart?.map((product: any) => {
                   return (
                     <div key={`${product.id}-cart`} className="relative rounded-lg bg-bg shadow-[0px_1px_13px_rgba(0,_0,_0,_0.05)] w-full flex flex-row items-center justify-between overflow-hidden ">
                       <div className="w-[20%] overflow-hidden flex flex-row items-start justify-start">
@@ -183,7 +185,7 @@ const Cart = (params: any) => {
                         {`${product.currentPrice?.toFixed(2)} EGP`}
                       </div>
                       <div className="flex items-center justify-center flex-row w-[20%] overflow-hidden ">
-                        <div className="py-1.5 px-3 border-[1.5px] border-solid rounded-lg border-gray-200 relative leading-[24px]">{parseInt(product.quantity)}
+                        <div className="py-1.5 px-3 border-[1.5px] border-solid rounded-lg border-gray-200 relative leading-[24px]">{product.quantity}
                         </div>
                         <div className="flex items-center justify-between flex-col">
                           <button type="button" className=' p-0 m-2 bg-transparent rounded-full border-none shadow-lg text-center cursor-pointer text-lg w-8 h-8 hover:bg-[#0daac2]'
@@ -199,7 +201,7 @@ const Cart = (params: any) => {
                         </div>
                       </div>
                       <div className="flex items-center justify-center w-[20%] leading-[24px] font-semibold text-primary">
-                        <span className=" flex justify-center w-[50%]">{`${parseInt(product.currentPrice?.toFixed(2)) * parseInt(product.quantity)}`}</span>
+                        <span className=" flex justify-center w-[50%]">{`${product.currentPrice?.toFixed(2) * product.quantity}`}</span>
                         <button onClick={(e, id = product.id) => handelDelete(id)} type="button" className="flex justify-start hover:text-red bg-transparent cursor-pointer border-none w-[50%]" ><FontAwesomeIcon icon={faTrash} /></button>
                       </div>
                     </div>)
