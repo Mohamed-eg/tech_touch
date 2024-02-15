@@ -1,8 +1,8 @@
-import UserInfoNav from "../../../components/user-info/UserInfoNav";
-import UserInfoProfile from "../../../components/user-info/UserInfoProfile";
-import UserInfoLayout from "../../../components/user-info/UserInfoLayout";
-import MainHeader from "../../../components/main-header";
-import FooterComp from "../../../components/footer";
+import UserInfoNav from "../../../../components/user-info/UserInfoNav";
+import UserInfoProfile from "../../../../components/user-info/UserInfoProfile";
+import UserInfoLayout from "../../../../components/user-info/UserInfoLayout";
+import MainHeader from "../../../../components/main-header";
+import FooterComp from "../../../../components/footer";
 
 const page = () => {
   return (

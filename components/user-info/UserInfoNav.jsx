@@ -16,22 +16,22 @@ function UserInfoNav(props) {
           <Link className="rounded-lg text-white" href="/">Back to Home</Link>
         </li>
         <UserInfoNavItem active>
-          <Link href={`../../uid?uid=${userID}/DeliveryAddress`}>
+          <Link href={`../../EditProfile/uid?uid=${userID}`}>
             My Account</Link>
         </UserInfoNavItem>
         <UserInfoNavItem>
-          <Link href={`../../uid?uid=${userID}/DeliveryAddress`}>
+          <Link href={`../../MyOrders/uid?uid=${userID}`}>
             My Orders</Link>
         </UserInfoNavItem>
           <UserInfoNavItem>
-                <Link href={`../../uid?uid=${userID}/DeliveryAddress`}>
+                <Link href={`../../DeliveryAddress/uid?uid=${userID}`}>
             Delivery Address</Link>
         </UserInfoNavItem>
-          <UserInfoNavItem><Link href={`../../uid?uid=${userID}/DeliveryAddress`}>
-            Account Info</Link>
+          <UserInfoNavItem><Link href={`../../Language/uid?uid=${userID}`}>
+          Language</Link>
         </UserInfoNavItem>
-          <UserInfoNavItem><Link href={`../../uid?uid=${userID}/DeliveryAddress`}>
-            Feedbacks</Link>
+          <UserInfoNavItem><Link href={`../../PrivacyPolicy/uid?uid=${userID}`}>
+          Privacy Policy</Link>
      </UserInfoNavItem>
       </ul>
     </aside>

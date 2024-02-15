@@ -1,5 +1,5 @@
 import UserInfoNav from "../../../../components/user-info/UserInfoNav";
-import UserInfoAddress from "../../../../components/user-info/UserInfoProfile";
+import UserInfoAddress from "../../../../components/user-info/UserInfoAddress";
 import UserInfoLayout from "../../../../components/user-info/UserInfoLayout";
 import MainHeader from "../../../../components/main-header";
 import FooterComp from "../../../../components/footer";

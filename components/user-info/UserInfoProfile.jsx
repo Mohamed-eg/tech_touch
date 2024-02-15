@@ -26,7 +26,7 @@ const UserInfoProfile = ()=> {
   useEffect(() => {
     getmydata().then((data) => {
       console.log(data)
-      if (data != null) { setData(data[0]) }
+      if (data != null && data != [] ) { setData(data[0]) }
     })},[])
 
   return (
@@ -34,7 +34,7 @@ const UserInfoProfile = ()=> {
       <div className="flex w-full bg-[#f4f4f4] flex-col items-center rounded-xl justify-center text-black">
         <div className="flex flex-col items-center justify-center">
             <div className="rounded-full flex items-center justify-center scondry_border overflow-hidden w-[100px] h-[100px] mt-5 pt-5">
-                <Image alt={mydate?.name} src={mydate?.imageLink?mydate.imageLink:logoImg} width={100} height={100} className=" object-cover"/>
+                <Image alt={mydate?.name} src={/*mydate?.imageLink?mydate.imageLink:*/logoImg} width={100} height={100} className=" object-cover"/>
             </div>
             <h1 className="mb-0">{mydate?.name}</h1>
             <h3 className="mt-0 text-[#a7a7a7]">{mydate?.email}</h3>
