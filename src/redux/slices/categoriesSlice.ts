@@ -86,7 +86,7 @@ const initialState: CategoriesState = {
     selectedCategory: 'computer',
     selectedProducts: [],
     allproducts: statecData,
-    currentUser: 'UydNjj1HtTeiVO3up2b9tU0cXr72'
+    currentUser: ''
 };
 
 const categoriesSlice = createSlice({
@@ -146,7 +146,6 @@ const categoriesSlice = createSlice({
             //         state.allproducts.flat().map((p: any) => { if (p.categories === "accessories") { p.ischeaked = !p.ischeaked } })
             //         break;
             //     // return { ...state, selectedProducts: state.allproducts.flat().filter(p => p.categories === "phone") };
-
             //     default:
             //         return state;
             // }

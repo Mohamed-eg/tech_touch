@@ -160,6 +160,7 @@ export default function Categorypage() {
             <Swiper
               className="!flex justify-center  !p-0 rounded-xl !w-[100vw] items-center"
               modules={[Pagination , Autoplay]}
+              spaceBetween={30}
               loop={true}
               autoplay={{
                 delay: Ads?Ads.activeSeconds*1000:3000,
