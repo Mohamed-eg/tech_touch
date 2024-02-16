@@ -20,7 +20,7 @@ import cartIcon from "../../public/Buy.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/pagination";
 import "swiper/css";
-import { Pagination } from "swiper/modules";
+import { Pagination,Autoplay } from "swiper/modules";
 import slidesImg from "../../public/Photo.png";
 import Link from "next/link";
 import {
@@ -94,6 +94,7 @@ const isitcheaked = () => {
 };
 
 export default function Categorypage() {
+  const [Ads,setAds]=useState({})
   const [catProd,setCatProd] = useState([]);
   const [checked,setChecked] = useState(false)
   const AllProducts = useSelector((state) => state.categories.allproducts);
@@ -113,11 +114,24 @@ export default function Categorypage() {
       return null;
     }
   };
+  
+  const fetchAds = async () => {
+    try {
+      const response = await axios.get(`https://backend.touchtechco.com/ads`);
+      return response.data.data;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      return null;
+    }
+  };
   useEffect(() => {
     fetchCategories().then((data) => {
       if (data != null) { dispatch(setCategories(data)) }
     });
-  }, [])
+    fetchAds().then((data) => {
+      console.log(data)
+      setAds(data) }
+    )}, [])
   // const fetchCat = async () => {
   //   console.log(selectedCategory)
   //   try {
@@ -145,41 +159,45 @@ export default function Categorypage() {
           <div className="w-full !flex justify-center  rounded-xl items-center overflow-hidden">
             <Swiper
               className="!flex justify-center  !p-0 rounded-xl !w-[100vw] items-center"
-              modules={[Pagination]}
+              modules={[Pagination , Autoplay]}
               loop={true}
+              autoplay={{
+                delay: Ads?Ads.activeSeconds*1000:3000,
+                disableOnInteraction: false,
+              }}
               pagination={{ clickable: true }}>
               <SwiperSlide className=" rounded-xl">
                 <Image
                   alt="img"
-                  className="w-full h-auto object-contain !rounded-xl"
+                  className={Ads?.imageUrl}
                   src={slidesImg}
                 />
               </SwiperSlide>
               <SwiperSlide className=" rounded-xl">
                 <Image
                   alt="img"
-                  className="w-full h-auto object-contain !rounded-xl"
+                  className={Ads?.imageUrl}
                   src={slidesImg}
                 />
               </SwiperSlide>
               <SwiperSlide className=" rounded-xl">
                 <Image
                   alt="img"
-                  className="w-full h-auto object-contain !rounded-xl"
+                  className={Ads?.imageUrl}
                   src={slidesImg}
                 />
               </SwiperSlide>
               <SwiperSlide className=" rounded-xl">
                 <Image
                   alt="img"
-                  className="w-full h-auto object-contain !rounded-xl"
+                  className={Ads?.imageUrl}
                   src={slidesImg}
                 />
               </SwiperSlide>
               <SwiperSlide className=" rounded-xl">
                 <Image
                   alt="img"
-                  className="w-full h-auto object-contain !rounded-xl"
+                  className={Ads?.imageUrl}
                   src={slidesImg}
                 />
               </SwiperSlide>
