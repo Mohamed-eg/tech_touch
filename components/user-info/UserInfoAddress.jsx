@@ -3,8 +3,10 @@ import axios from "axios";
 import { useState,useEffect } from "react";
 import classes from "./UserInfoDetail.module.css";
 import { useSearchParams } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 function UserInfoAddress() {
+  const router =useRouter()
   const searchParams = useSearchParams();
   const userID = searchParams.get('uid');
   const [mydata,setData]=useState([])
@@ -19,6 +21,9 @@ function UserInfoAddress() {
       return null;
     }
   };
+  const handleAdd= async()=>{
+    router.push(`/addressForm/uid?uid=${userID}`)
+  }
 
   useEffect(() => {
     getmydata().then((data) => {
@@ -28,32 +33,34 @@ function UserInfoAddress() {
 
   return (
     <section className={classes.Main}>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Governorate</th>
-            <th scope="col">City</th>
-            <th scope="col">Address</th>
-            <th scope="col">At</th>
+      <div className="w-full h-[80vh] rounded-xl bg-slate-50">
+        <button className="rounded-full w-[40px] h-[40px] m-6 bg-scondry border-none" onClick={handleAdd}>➕</button><spa>Add address</spa>
+      <table class="table w-full">
+        <thead className="w-full">
+          <tr className="bg-white w-full p-5 text-[25px] m-5">
+            <th scope="col !w-[25%]">Title</th>
+            <th scope="col !w-[25%]">Governorate</th>
+            <th scope="col !w-[25%]">City</th>
+            <th scope="col !w-[25%]">Address</th>
           </tr>
         </thead>
         <tbody class="table-group-divider">
       {mydata?.map((order)=>{return( 
-         <tr key={order?.id}>
-            <th scope="row">{order?.id}</th>
-            <td>{order?.data}</td>
-            <td>{order?.price}</td>
-            <td>{order?.completed}</td>
-            <td>
+         <tr className="bg-white rounded-xl p-4 m-4" key={order?.id}>
+            <th scope="row">{order?.title}</th>
+            <td>{order?.governorate}</td>
+            <td>{order?.city}</td>
+            <td>{order?.address}</td>
+            {/* <td>
               <a href="#">Order Details</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <a href="#">Reorder</a>
-            </td>
+            </td> */}
           </tr>)})
       }
 
         </tbody>
       </table>
+      </div>
     </section>
   );
 }
