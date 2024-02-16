@@ -1,5 +1,5 @@
 import UserInfoNav from "../../../../components/user-info/UserInfoNav";
-// import UserInfoAddress from "../../../../components/user-info/UserInfoAddress";
+import UserInfoOrders from "../../../../components/user-info/UserInfoOrders.jsx";
 import UserInfoLayout from "../../../../components/user-info/UserInfoLayout";
 import MainHeader from "../../../../components/main-header";
 import FooterComp from "../../../../components/footer";
@@ -10,7 +10,7 @@ const page = () => {
     <MainHeader />
     <UserInfoLayout className="mt-[200px]">
       <UserInfoNav />
-    <h1>my orders</h1>  
+    <UserInfoOrders/> 
     </UserInfoLayout>
     <FooterComp
         frameDivPosition="unset"

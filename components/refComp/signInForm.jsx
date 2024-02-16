@@ -16,6 +16,7 @@ import LogImg from "../../public/background@2x.png";
 import {auth} from "../../src/firebase/firebase";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
+import axios from "axios";
 import { setCurrentUser } from "../../src/redux/slices/categoriesSlice";
 // import { useRouter } from "next/navigation";
 export default function SignIn() {
@@ -25,6 +26,7 @@ export default function SignIn() {
     const [loading, setLoading] = useState(false);
     const [showOTP, setShowOTP] = useState(false);
     const [user, setUser] = useState(null);
+    const reduxID =useSelector((state) => state.categories.currentUser)
   
     const onCaptchVerify=()=>{
       if (!window.recaptchaVerifier) {
@@ -67,17 +69,39 @@ export default function SignIn() {
           setLoading(false);
         });
     }
-  
+    const getmydata = async (userID) => {
+      console.log(userID)
+      try {
+        const response = await axios.get(`https://backend.touchtechco.com/fieldGen?coll=users&filedName=id&filedValue=${userID}`);
+        return response.data
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        return null;
+      }
+    };
     function onOTPVerify() {
       setLoading(true);
       window.confirmationResult
         .confirm(otp)
         .then(async (res) => {
-          console.log(res.user.uid);
-          setCurrentUser(res.user.uid);
+          const uid =res.user.uid
+          console.log(uid);
+          setCurrentUser(uid);
+          console.log(reduxID)
+          getmydata(uid).then((res)=>{
+            console.log(res)
+            if(res.code===200){
+              if(res.data.id){
+                toast.error(`Welcome ${res.data.name}`);
+                router.push('/')
+              }else{toast.error("Please create your account first");
+              router.push('/signup')
+            } 
+            }
+            
+          })
           setUser(res.user);
           setLoading(false);
-          router.push('/')
         })
         .catch((err) => {
           console.log(err);
@@ -86,20 +110,20 @@ export default function SignIn() {
     }
 
   return (
-    <div className=" mt-[150px] bg-white flex flex-row-reverse items-center justify-between">
-      <div className=" relative">
+    <div className=" mt-[150px] bg-white w-full  flex flex-row-reverse items-center justify-between">
+      <div className=" relative w-[45%]">
         <Image
-          className="relative w-full h-[60vh]"
+          className="relative w-full"
           src={LogImg}
           alt="shop"
           width={screen.width / 2}
-          height={screen.width / 1.5}
+          height={screen.width / 1.8}
         />
         <div className="img-shadow w-full top-0 right-0 min-h-full z-10"></div>
       </div>
 
       <section className=" w-full m-0 p-0 flex items-center justify-center ">
-      <div className="h-[400px] w-[400px] flex items-center justify-center overflow-hidden  bg-primary1 rounded-full">
+      <div className="h-[500px] w-[500px] flex items-center justify-center overflow-hidden  bg-primary1 rounded-full">
         <Toaster toastOptions={{ duration: 4000 }} />
         <div id="recaptcha-container"></div>
         {user ? (
@@ -107,7 +131,7 @@ export default function SignIn() {
             👍Login Success
           </h2>
         ) : (
-          <div className="w-80 flex flex-col gap-4 rounded-lg p-4">
+          <div className="w-80 flex flex-col items-center justify-center gap-4 rounded-lg p-4">
             <h1 className="text-center leading-normal text-white font-medium text-3xl mb-6">
               Welcome to <br /><span className="text-[40px]">Tech Touch</span> 
             </h1>

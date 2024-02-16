@@ -1,3 +1,4 @@
+'use client'
 import { configureStore } from '@reduxjs/toolkit';
 import categoriesReducer from './slices/categoriesSlice';
 import { wishListReducer } from './slices/wishListSlice';

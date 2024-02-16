@@ -200,3 +200,11 @@ a * {
 .scondry_border {
   border: 2px solid #757575
 }
+
+.opt-container {
+  input {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 5px;
+  }
+}

@@ -42,9 +42,9 @@ function UserInfoDetail() {
       {mydate?.map((order)=>{return( 
          <tr key={orde?.id}>
             <th scope="row">{order.id}</th>
-            <td>{order.data}</td>
+            <td>{order.createdAt}</td>
             <td>{order.price}</td>
-            <td>{order.completed}</td>
+            <td>{order.state}</td>
             <td>
               <a href="#">Order Details</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <a href="#">Reorder</a>

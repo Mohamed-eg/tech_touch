@@ -8,6 +8,10 @@ import Message from "../../public/Message.svg";
 import Image from "next/image";
 
 const UserInfoProfile = ()=> {
+  const [name,setName]=useState('')
+  const [email,setEmail]=useState('')
+  const [phoneOne,setPhoneOne]=useState('')
+  const [phoneTwo,setPhoneTwo]=useState('')
   const searchParams = useSearchParams();
   const userID = searchParams.get('uid');
   const [mydate,setData]=useState({})
@@ -23,6 +27,39 @@ const UserInfoProfile = ()=> {
     }
   };
 
+  const handleName = (e)=>{
+    setName(e.target.value)
+  }
+  const handleEmail = (e)=>{
+    setEmail(e.target.value)
+  }
+  const handlePhoneOne = (e)=>{
+    setPhoneOne(e.target.value)
+  }
+  const handlePhoneTwo = (e)=>{
+    setPhoneTwo(e.target.value)
+  }
+  const sendData =()=>{
+    console.log(name,email,phoneOne,phoneTwo)
+    axios.patch(`https://backend.touchtechco.com/fieldGen?coll=users&filedName=id&filedValue=${userID}`,
+    {
+      "name":name,
+      "email":email,
+      "primaryPhone":phoneOne,
+      "secondaryPhone":phoneTwo
+    }).then((response) => {
+      getmydata().then(
+       (res)=>{
+        console.log(res)
+        setEmail('')
+        setName('')
+        setPhoneOne('')
+        setPhoneTwo('')
+       }
+      )
+      console.log(response)
+    });
+  }
   useEffect(() => {
     getmydata().then((data) => {
       console.log(data)
@@ -42,23 +79,23 @@ const UserInfoProfile = ()=> {
         <div className="flex flex-col justify-center items-center gap-5">
             <div className="flex flex-col ">
                 <label htmlFor="FullName">Full Name</label>
-                <div className="flex flex-row jus relative h-[40px] justify-center items-center p-4 bg-white rounded-lg w-[250px]"><input className=" absolute w-full h-full rounded-lg border-none !focus:outline-none !outline-none bg-transparent p-1" id="FullName" type="text" placeholder={mydate?.name}/><Image className="absolute right-2" idth={25} height={25} alt="icon" src={logoImg}/></div>
+                <div className="flex flex-row jus relative h-[40px] justify-center items-center p-4 bg-white rounded-lg w-[250px]"><input value={name} onChange={handleName} className=" absolute w-full h-full rounded-lg border-none !focus:outline-none !outline-none bg-transparent p-1" id="FullName" type="text" placeholder={mydate?.name}/><Image className="absolute right-2" idth={25} height={25} alt="icon" src={logoImg}/></div>
             </div>
             <div className="flex flex-col ">
                 <label htmlFor="Email">Email</label>
-                <div className="flex flex-row jus relative h-[40px] justify-center items-center p-4 bg-white rounded-lg w-[250px]"><input className=" absolute w-full h-full rounded-lg border-none !focus:outline-none !outline-none bg-transparent p-1" id="Email" type="text" placeholder={mydate?.email}/><Image className="absolute right-2"width={20} height={20} alt="icon" src={Message}/></div>
+                <div className="flex flex-row jus relative h-[40px] justify-center items-center p-4 bg-white rounded-lg w-[250px]"><input value={email} onChange={handleEmail} className=" absolute w-full h-full rounded-lg border-none !focus:outline-none !outline-none bg-transparent p-1" id="Email" type="text" placeholder={mydate?.email}/><Image className="absolute right-2"width={20} height={20} alt="icon" src={Message}/></div>
             </div>
             <div className="flex flex-col ">
                 <label htmlFor="SecondaryPhone">Secondary Phone</label>
-                <div className="flex flex-row jus relative h-[40px] justify-center items-center p-4 bg-white rounded-lg w-[250px]"><input className=" absolute w-full h-full rounded-lg border-none !focus:outline-none !outline-none bg-transparent p-1" id="SecondaryPhone" type="text" placeholder={mydate?.secondaryPhone}/></div>
+                <div className="flex flex-row jus relative h-[40px] justify-center items-center p-4 bg-white rounded-lg w-[250px]"><input value={phoneTwo} onChange={handlePhoneTwo} className=" absolute w-full h-full rounded-lg border-none !focus:outline-none !outline-none bg-transparent p-1" id="SecondaryPhone" type="text" placeholder={mydate?.secondaryPhone}/></div>
             </div>
             <div className="flex flex-col ">
                 <label htmlFor="PrimaryPhone">Primary Phone</label>
-                <div className="flex flex-row jus relative h-[40px] justify-center items-center p-4 bg-white rounded-lg w-[250px]"><input className=" absolute w-full h-full rounded-lg border-none !focus:outline-none !outline-none bg-transparent p-1" id="PrimaryPhone" type="text" placeholder={mydate?.primaryPhone}/></div>
+                <div className="flex flex-row jus relative h-[40px] justify-center items-center p-4 bg-white rounded-lg w-[250px]"><input value={phoneOne} onChange={handlePhoneOne} className=" absolute w-full h-full rounded-lg border-none !focus:outline-none !outline-none bg-transparent p-1" id="PrimaryPhone" type="text" placeholder={mydate?.primaryPhone}/></div>
             </div>
         </div>
         <div className="flex flex-col">
-            <button className="p-4 mt-3 w-[250px] rounded-xl border-none  text-white bg-primary1" type="button">Save</button>
+            <button className="p-4 mt-3 w-[250px] rounded-xl border-none  text-white bg-primary1" type="button" onClick={sendData}>Save</button>
             <button className="p-4 my-3 w-[250px] rounded-xl border-red !border-[1px] text-red bg-white" type="button">Delete Account</button>
         </div>
 

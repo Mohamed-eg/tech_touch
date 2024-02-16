@@ -86,7 +86,7 @@ const initialState: CategoriesState = {
     selectedCategory: 'computer',
     selectedProducts: [],
     allproducts: statecData,
-    currentUser: ''
+    currentUser: 'UydNjj1HtTeiVO3up2b9tU0cXr72'
 };
 
 const categoriesSlice = createSlice({

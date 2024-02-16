@@ -14,7 +14,10 @@ import call from "../../public/icons/Call.svg";
 import profile from "../../public/icons/Profile.svg";
 import send from "../../public/icons/Send.svg";
 import message from "../../public/icons/Message.svg";
-import axios from "axios"
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { toast, Toaster } from "react-hot-toast";
+import { setCurrentUser } from "../../src/redux/slices/categoriesSlice";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 // import { faLock } from "";
@@ -57,14 +60,9 @@ const Signup = () => {
       return null;
     }
   };
+  const id =useSelector((state) => state.categories.currentUser)
   const createUser = async (data) => {
-    try {
-      await createUserWithEmailAndPassword(
-        auth,
-        data.email,
-        data.password
-      ).then((authUser) => {
-        const id =authUser.user.uid
+    console.log(id)
         const userData={
           "id": id,
           "name": data.fullName,
@@ -77,15 +75,10 @@ const Signup = () => {
           "secondaryPhone":data.phoneNumberTwo,
           "needEmailVerification": false
         }
-        console.log("Success. The user is created in Firebase");
-         postUser(userData ).then((res) => {
+        id?postUser(userData ).then((res) => {
           console.log(res)
           router.push(`./`)
-        });
-      });
-    } catch (error) {
-      setErrorMessage(error.message);
-    }
+        }):toast.error("Please create your account first")
   };
 
   // const mutation = useMutation(createUser);
