@@ -4,7 +4,7 @@ import { useState,useEffect } from "react";
 import classes from "./UserInfoDetail.module.css";
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from "next/navigation";
-import { RiDeleteBin5Fill } from "react-icons/ri";
+import { MdOutlineDeleteForever } from "react-icons/md";
 
 function UserInfoAddress() {
   const router =useRouter()
@@ -70,7 +70,7 @@ function UserInfoAddress() {
             <td>{order?.governorate}</td>
             <td>{order?.city}</td>
             <td>{order?.address}</td>
-            <td><RiDeleteBin5Fill onClick={()=>{handleDelete(order.id)}} className=" hover:text-rose-600 text-xl cursor-pointer p-4 rounded-xl" /></td>
+            <td><MdOutlineDeleteForever onClick={()=>{handleDelete(order.id)}} className="text-black  bg-slate-300 hover:text-rose-600 text-xl cursor-pointer p-4 rounded-xl" /></td>
             {/* <td>
               <a href="#">Order Details</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <a href="#">Reorder</a>

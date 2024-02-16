@@ -12,6 +12,15 @@ const UserInfoOrders = () => {
     let [Tprice,setTprice]= useState(0)
     const searchParams = useSearchParams('');
     const uid = searchParams.get('uid');
+
+    const getTotalPrise = (mycart) => {
+        let totalPrise = 0;
+        mycart.map((product) => {
+          totalPrise += parseInt(product.currentPrice?.toFixed(2)) * parseInt(product.quantity)
+        })
+        return totalPrise
+      }
+
     const getOrders = async ()=>{
         try {
             const response = await axios.get(`https://backend.touchtechco.com/userGen?coll=orders&userId=${uid}`);
@@ -92,7 +101,7 @@ const UserInfoOrders = () => {
                        </div>
                        <div className='flex items-center justify-between flex-row m-2 p-3 bg-white rounded-xl '>
                            <span className='text-[#242424]'>Price</span>
-                           <span className='text-[#009099]'>{calcPrice(cart.cartItems)} EGP</span>
+                           <span className='text-[#009099]'>{getTotalPrise(cart.cartItems)} EGP</span>
                        </div>
                    </div>
            

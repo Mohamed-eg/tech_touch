@@ -32,7 +32,7 @@ useEffect(()=>{
 
   return (
    <>
-   {(data?.length!==0)?<div className="p-[8vw] relative flex flex-col items-start justify-start gap-[60px] text-left text-5xl text-text font-heading-24px-semibold">
+   {(data?.length!==0 && data !== null)?<div className="p-[8vw] relative flex flex-col items-start justify-start gap-[60px] text-left text-5xl text-text font-heading-24px-semibold">
       <BestSellingProductsCard
         sectionTitle="Featured"
         pageTitle="New Arrival"

@@ -18,9 +18,12 @@ import { generateUniqueId } from "../../functions";
 import { auth } from "../../src/firebase/firebase"
 import { useSearchParams } from 'next/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useRouter } from "next/navigation";
 import 'swiper/css';
 import { v4 as uuidv4 } from 'uuid';
+import Router from "next/router"
 const ProductDeltal = (producDeta: any) => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams.get('id');
   // const url =  ?.location.href;
@@ -187,14 +190,18 @@ const ProductDeltal = (producDeta: any) => {
   // const mypage = AllProducts.find((page: any) => { return (page.find((product: any) => { return (product.id == myid) })) });
 
   const handelSubmit = (e: any, id: any, quantity: any, color: any, image: any, title: any, short: any, long: any, price: any) => {
-    e.preventDefault()
+   if(uid){ e.preventDefault()
     console.log(id, quantity, color, image, title, short, long, price)
     quantity > 0 && color && postCart(id, quantity, color, image, title, short, long, price).then((res) => {
-      alert(`👍 you have added ${quantity} ${title} with color ${color} to cart 🛒`)
+      alert(`👍 you have added ${quantity} ${title} to cart 🛒`)
       console.log(res);
     });
     quantity > 0 && color && dispatch(addToCart({ id, quantity, color, imageLink: image, title, short, long, currentPrice: price }))
-    console.log(cart)
+    console.log(cart)}
+    else{
+      alert(`Pleas sign in first 🔑`)
+      router.push('/login')
+    }
   }
   return (
     <>
