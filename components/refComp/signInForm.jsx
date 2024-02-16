@@ -111,7 +111,7 @@ export default function SignIn() {
 
   return (
     <div className=" mt-[150px] bg-white w-full  flex flex-row-reverse items-center justify-between">
-      <div className=" relative w-[45%]">
+      <div className=" relative w-full">
         <Image
           className="relative w-full"
           src={LogImg}
@@ -176,7 +176,7 @@ export default function SignIn() {
                 >
                   Verify your phone number
                 </label>
-                <PhoneInput country={"il"} value={ph} onChange={setPh} />
+                <PhoneInput country={"ps"} value={ph} disableDropdown onChange={setPh} />
                 <button
                   onClick={onSignup}
                   className=" bg-[#1070af] w-[50%] flex gap-1 items-center border-none m-auto justify-center py-2.5 text-white rounded"

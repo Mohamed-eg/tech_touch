@@ -26,7 +26,7 @@ const Signup = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const milliseconds = Date.now();
   const isoDate = new Date(milliseconds).toISOString();
-
+  const uid =auth.currentUser?.uid
   const validationSchema = Yup.object().shape({
     fullName: Yup.string().required("Full name is required"),
     phoneNumber: Yup.string().required("Phone number is required"),
@@ -62,9 +62,9 @@ const Signup = () => {
   };
   const id =useSelector((state) => state.categories.currentUser)
   const createUser = async (data) => {
-    console.log(id)
+    console.log(uid)
         const userData={
-          "id": id,
+          "id": uid,
           "name": data.fullName,
           "email": data.email,
           "createdAt": isoDate,
@@ -75,7 +75,7 @@ const Signup = () => {
           "secondaryPhone":data.phoneNumberTwo,
           "needEmailVerification": false
         }
-        id?postUser(userData ).then((res) => {
+        uid?postUser(userData ).then((res) => {
           console.log(res)
           router.push(`./`)
         }):toast.error("Please create your account first")

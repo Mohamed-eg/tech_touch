@@ -12,7 +12,7 @@ import newArrivalImg4 from '../public/headphones-audio-for-listen@2x.png'
 import axios from "axios"
 
 const NewArrival = () => {
-const [data ,setData] =useState([])
+const [data ,setData] =useState(null)
 const hostLink =process.env.my_host
   const fethcNewArrival = async (hostLink) => {
     try {
@@ -32,7 +32,7 @@ useEffect(()=>{
 
   return (
    <>
-   {data?<div className="p-[8vw] relative flex flex-col items-start justify-start gap-[60px] text-left text-5xl text-text font-heading-24px-semibold">
+   {(data?.length!==0)?<div className="p-[8vw] relative flex flex-col items-start justify-start gap-[60px] text-left text-5xl text-text font-heading-24px-semibold">
       <BestSellingProductsCard
         sectionTitle="Featured"
         pageTitle="New Arrival"

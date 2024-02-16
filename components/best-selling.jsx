@@ -52,7 +52,7 @@ const BestSelling = () => {
         {data?null:<h1 className=" text-primary1">Loding....</h1>}
           {data?.map(p=>{
             return (
-              <SwiperSlide key={`best-prode${p.id}`}>
+              <SwiperSlide className="!mx-10 !w-[250px]" key={`best-prode${p.id}`}>
                 <Link href={userId ? `/productDeta/id?id=${p.id}` : `./login`}>
               <CardWithLinksAndText
                 title={p.title}

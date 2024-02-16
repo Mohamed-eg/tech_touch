@@ -45,7 +45,7 @@ const UserInfoOrders = () => {
                        <CiLocationOn className='w-12  h-12 m-3 text-primary1' />
                        <div className='flex ml-4 flex-col'>
                            <h2>
-                               {/* {cart.addressId} */}
+                               {()=>getAddress(cart.addressId)}
                                Home
                            </h2>
                            <h3>

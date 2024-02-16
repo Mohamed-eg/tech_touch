@@ -18,13 +18,15 @@ import { setCart } from "../../src/redux/slices/productsSlice";
 import { useSearchParams } from 'next/navigation';
 
 import { setUserId } from "firebase/analytics";
+import { useRouter } from "next/navigation";
 const Cart = (params: any) => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams.get('id');
   const uid = params.id;
   console.log(query)
   const [userID, setUid] = useState<string | any>(query)
-  let shipping = 0
+  let shipping = 10
   const cart = useSelector((state: any) => state.products.cart)
   const [mycart, setMyCart] = useState(cart)
   const dispatch = useDispatch()
@@ -123,6 +125,10 @@ const Cart = (params: any) => {
     }) // Call the getmycart function only if cart is truthy
     console.log(cart)
   }, [])
+
+  const gotoCheckout = () => {
+    router.push(`/checkOut/uid?uid=${query}`)
+  }
   return (
     <main className="bg-bg w-full mt-12 overflow-hidden flex flex-col items-center justify-start gap-[140px] text-left text-sm text-bg font-title-20px-medium">
       <div className="w-full overflow-hidden  flex flex-col items-center justify-center gap-[80px]">
@@ -235,7 +241,7 @@ const Cart = (params: any) => {
                   </div>
                   <div className=" flex flex-row items-start justify-start gap-[314px]">
                     <div className="relative leading-[24px]">Shipping:</div>
-                    <div className="relative leading-[24px]">Free</div>
+                    <div className="relative leading-[24px]">10</div>
                   </div>
                   <div className=" flex flex-col items-start justify-start opacity-[0.4]">
                     <div className="relative box-border w-[423px] h-px border-t-[1px] border-solid border-gray-100" />
@@ -245,7 +251,9 @@ const Cart = (params: any) => {
                     <div className="relative leading-[24px]">{`${getTotalPrise() + shipping}`}</div>
                   </div>
                 </div>
-                <button className="rounded-2xl hover:bg-[#199aeb] hover:text-white border-none bg-primary1 font-medium text-[18px] cursor-pointer py-4 px-12 text-bg">
+                <button className="rounded-2xl hover:bg-[#199aeb] hover:text-white border-none bg-primary1 font-medium text-[18px] cursor-pointer py-4 px-12 text-bg"
+                  onClick={gotoCheckout}
+                >
                   Procees to checkout
                 </button>
               </div>
