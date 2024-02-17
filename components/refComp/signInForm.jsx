@@ -91,6 +91,7 @@ export default function SignIn() {
           getmydata(uid).then((res)=>{
             console.log(res)
             if(res.code===200){
+              console.log(res.data)
               if(res.data.id){
                 toast.error(`Welcome ${res.data.name}`);
                 router.push('/')
