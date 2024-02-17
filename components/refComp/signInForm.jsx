@@ -92,7 +92,7 @@ export default function SignIn() {
             console.log(res)
             if(res.code===200){
               console.log(res.data)
-              if(res.data.id){
+              if(res.data.length !=0 ){
                 toast.error(`Welcome ${res.data.name}`);
                 router.push('/')
               }else{toast.error("Please create your account first");
