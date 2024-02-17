@@ -1,8 +1,12 @@
 'use client'
+import dynamic from 'next/dynamic';
+
+const SignIn = dynamic(() => import('../../../components/refComp/signInForm'), { ssr: false });
+
 import type { NextPage } from "next";
 import FooterComp from '../../../components/footer';
 import MainHeader from '../../../components/main-header';
-import SignIn from '../../../components/refComp/signInForm'
+// import SignIn from '../../../components/refComp/signInForm'
 
 
 const LogIn: NextPage = () => {

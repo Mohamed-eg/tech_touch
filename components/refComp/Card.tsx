@@ -87,18 +87,18 @@ const Cart = (params: any) => {
   const handelDelete = (id: string) => {
     deleteOne(id).then((res) => {
       console.log(res)
+      dispatch(removeItem({ id }))
       getmycart().then((res) => {
         console.log(res)
+        setCart({ data: res })
         setMyCart(res)
-        // setCart({ data: res })
         console.log(cart)
       })
+      // console.log(cart)
       // removeItem(id)
       // console.log(cart)
       // setCart(cart)
-      // console.log(cart)
     })
-    dispatch(removeItem({ id }))
   }
   const handelIncrease = (productId: any, quantity: any) => {
     const newQuantity = `${parseInt(quantity) + 1}`

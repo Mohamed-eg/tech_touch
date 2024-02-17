@@ -45,7 +45,9 @@ export default function SignIn() {
     }
     useEffect(
       ()=>{
-        onCaptchVerify()
+        if (typeof window !== "undefined") {
+          onCaptchVerify();
+        }
       }
     ,[auth])
   
@@ -53,21 +55,27 @@ export default function SignIn() {
       setLoading(true);
       onCaptchVerify();
   
-      const appVerifier = window.recaptchaVerifier;
-  
-      const formatPh = "+" + ph;
-  
-      signInWithPhoneNumber(auth, formatPh, appVerifier)
-        .then((confirmationResult) => {
-          window.confirmationResult = confirmationResult;
-          setLoading(false);
-          setShowOTP(true);
-          toast.success("OTP sended successfully!");
-        })
-        .catch((error) => {
-          console.log(error);
-          setLoading(false);
-        });
+      if (typeof window !== "undefined") {
+        // Code that uses window
+        const appVerifier = window.recaptchaVerifier;
+    
+        const formatPh = "+" + ph;
+    
+        signInWithPhoneNumber(auth, formatPh, appVerifier)
+          .then((confirmationResult) => {
+            if (typeof window !== "undefined") {
+              // Code that uses window
+              window.confirmationResult = confirmationResult;
+            }
+            setLoading(false);
+            setShowOTP(true);
+            toast.success("OTP sended successfully!");
+          })
+          .catch((error) => {
+            console.log(error);
+            setLoading(false);
+          });
+      }
     }
     const getmydata = async (userID) => {
       console.log(userID)
@@ -81,32 +89,35 @@ export default function SignIn() {
     };
     function onOTPVerify() {
       setLoading(true);
-      window.confirmationResult
-        .confirm(otp)
-        .then(async (res) => {
-          const uid =res.user.uid
-          console.log(uid);
-          setCurrentUser(uid);
-          console.log(reduxID)
-          getmydata(uid).then((res)=>{
-            console.log(res)
-            if(res.code===200){
-              if(res.data.id){
-                toast.error(`Welcome ${res.data.name}`);
-                router.push('/')
-              }else{toast.error("Please create your account first");
-              router.push('/signup')
-            } 
-            }
-            
+      if (typeof window !== "undefined") {
+        // Code that uses window
+        window.confirmationResult
+          .confirm(otp)
+          .then(async (res) => {
+            const uid =res.user.uid
+            console.log(uid);
+            setCurrentUser(uid);
+            console.log(reduxID)
+            getmydata(uid).then((res)=>{
+              console.log(res)
+              if(res.code===200){
+                if(res.data.id){
+                  toast.error(`Welcome ${res.data.name}`);
+                  router.push('/')
+                }else{toast.error("Please create your account first");
+                router.push('/signup')
+              } 
+              }
+              
+            })
+            setUser(res.user);
+            setLoading(false);
           })
-          setUser(res.user);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-          setLoading(false);
-        });
+          .catch((err) => {
+            console.log(err);
+            setLoading(false);
+          });
+      }
     }
 
   return (
