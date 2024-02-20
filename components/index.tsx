@@ -18,6 +18,7 @@ import { setCategories } from '../src/redux/slices/categoriesSlice';
 import { setCart } from '../src/redux/slices/productsSlice';
 import { changAll } from '../src/redux/slices/wishListSlice';
 import { useSearchParams } from 'next/navigation';
+import { setUser } from "../src/redux/slices/userSlice";
 
 const HOME = () => {
   const myuser = auth.currentUser
@@ -28,6 +29,15 @@ const HOME = () => {
   const fetchHome = async () => {
     try {
       const response = await axios.get(`https://backend.touchtechco.com/homeProducts`);
+      return response.data.data;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      return null;
+    }
+  };
+  const fetchUser = async (userID: String | undefined) => {
+    try {
+      const response = await axios.get(`https://backend.touchtechco.com/userGen?coll=users&userId=${userID}`);
       return response.data.data;
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -78,6 +88,10 @@ const HOME = () => {
     getmyList(userID).then((data: any) => {
       console.log(data)
       if (data != null) { dispatch(changAll(data)) }
+    })
+    fetchUser(userID).then((data: any) => {
+      console.log(data)
+      if (data != null) { dispatch(setUser(data)) }
     })
     dispatch(setCurrentUser(userID))
   }, [myuser])

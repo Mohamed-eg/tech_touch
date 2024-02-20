@@ -3,7 +3,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import categoriesReducer from './slices/categoriesSlice';
 import { wishListReducer } from './slices/wishListSlice';
 import { searchReducer } from './slices/searchSlice';
-import { cartReducer } from './slices/productsSlice'
+import { cartReducer } from './slices/productsSlice';
+import { userReduser } from './slices/userSlice';
 import storage from 'redux-persist/lib/storage';
 import {
   persistStore,
@@ -24,6 +25,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, cartReducer)
 const persistedwishReducer = persistReducer(persistConfig, wishListReducer)
 const persistedSearchReducer = persistReducer(persistConfig, searchReducer)
+const persistedUser = persistReducer(persistConfig, userReduser)
 
 
 export const store = configureStore({
@@ -31,7 +33,8 @@ export const store = configureStore({
     categories: categoriesReducer,
     wishList: persistedwishReducer,
     products: persistedReducer,
-    searchList: persistedSearchReducer
+    searchList: persistedSearchReducer,
+    user: persistedUser,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

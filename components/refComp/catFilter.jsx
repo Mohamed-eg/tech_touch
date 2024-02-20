@@ -26,8 +26,10 @@ import slidesImg from "../../public/Photo.png";
 import Link from "next/link";
 import { auth } from "../../src/firebase/firebase";
 import { useSearchParams,useRouter } from 'next/navigation';
-import RangeSlider from 'react-range-slider-input';
-import 'react-range-slider-input/dist/style.css';
+import Slider, { Range } from 'rc-slider';
+import 'rc-slider/assets/index.css';
+// import RangeSlider from 'react-range-slider-input';
+// import 'react-range-slider-input/dist/style.css';
 import {
   ChevronDownIcon,
   FunnelIcon,
@@ -42,79 +44,47 @@ import { setCategories } from "../../src/redux/slices/categoriesSlice";
 
 
 const sortOptions = [
-  { name: "Most Popular", href: "#", current: true },
-  { name: "Best Rating", href: "#", current: true },
-  { name: "Newest", href: "#", current: true },
-  { name: "Price: Low to High", href: "#", current: true },
-  { name: "Price: High to Low", href: "#", current: true },
-];
-const filters = [
-  {
-    id: "color",
-    name: "Color",
-    options: [
-      { value: "white", label: "White", checked: true },
-      { value: "black", label: "Black", checked: true },
-      { value: "blue", label: "Blue", checked: true },
-      { value: "red", label: "Red", checked: true },
-      { value: "green", label: "Green", checked: true },
-      { value: "purple", label: "Purple", checked: true },
-    ],
-  },
-  {
-    id: "category",
-    name: "Category",
-    options: [
-      { value: "new-arrivals", label: "New Arrivals", checked: true },
-      { value: "computer", label: "Computer", checked: true },
-      { value: "camera", label: "Camera", checked: true },
-      { value: "smartwatch", label: "Smartwatch", checked: true },
-      { value: "headphone", label: "Headphone", checked: true },
-      { value: "gaming", label: "Gaming", checked: true },
-      { value: "taplet", label: "Taplet", checked: true },
-      { value: "tools", label: "Tools", checked: true },
-      { value: "phone", label: "Phone", checked: true },
-      { value: "accessories", label: "Accessories", checked: true },
-    ],
-  },
-  {
-    id: "size",
-    name: "Size",
-    options: [
-      { value: "2l", label: "2L", checked: true },
-      { value: "6l", label: "6L", checked: true },
-      { value: "12l", label: "12L", checked: true },
-      { value: "18l", label: "18L", checked: true },
-      { value: "20l", label: "20L", checked: true },
-      { value: "40l", label: "40L", checked: true },
-    ],
-  },
+  { name: "Titel", href: "#", current: true },
+  { name: "Price", href: "#", current: true },
+  { name: "Discount", href: "#", current: true },
+  { name: "None", href: "#", current: true },
 ];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const isitcheaked = () => {
-  return filters.flat().options.checked;
-};
+// const isitcheaked = () => {
+//   return filters.flat().options.checked;
+// };
 
 export default function Categorypage() {
     const randomID = uuidv4(); 
     const userId =auth.currentUser?.uid;
 const searchParams = useSearchParams();
 const query = searchParams.get('catId');
-const [Rang,useRang]=useState([]);
-  const [Ads,setAds]=useState([])
+const [Rang,SetRang]=useState([1000,5000]);
+  const [cateFilter,setCateFilter]=useState([]);
+  const [selectedPram,setParameter] = useState('');
+  const [selectedOption,setSelectedOption] = useState('');
+  const [sortOption,setSortOption] = useState(null);
   const [catProd,setCatProd] = useState([]);
   const [checked,setChecked] = useState(false)
+  const [Desc,setDesc] = useState(false)
+  const [Disc,setDisc] = useState(false)
   const MyList = useSelector((state) => state.wishList.List)
   const AllProducts = useSelector((state) => state.categories.allproducts);
   const categories = useSelector((state) => state.categories.allCategories)
-  const [color, setColor] = useColor("rgb(86 30 203)");
+  const [color, setColor] = useColor("#123123");
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(true);
   const selectedCategory = useSelector(
     (state) => state.categories.selectedCategory
+  );
+//   const Slider = require('rc-slider');
+//   const createSliderWithTooltip = Slider.createSliderWithTooltip;
+// const Range = createSliderWithTooltip(Slider.Range);
+  const user = useSelector(
+    (state) => state.user
   );
     const dispatch = useDispatch();
   const fetchProducts = async () => {
@@ -126,14 +96,62 @@ const [Rang,useRang]=useState([]);
       return null;
     }
   };
+  const fetchCateFilter = async () => {
+    try {
+      const response = await axios.get(`https://backend.touchtechco.com/gen?coll=categories&id=${query}`);
+      return response.data.data;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      return null;
+    }
+  };
+  const postSelectedFilter = async () => {
+    console.log( Rang[0], Rang[1],parseInt(color.substring(1), 16),selectedPram,selectedOption,user)
+    try {
+      const response = await axios.post(`https://backend.touchtechco.com/filter?catId=${query}`,{
+        "minPrice": Rang[0],
+         "maxPrice": Rang[1],
+         // can be null
+          "color": parseInt(color.substring(1), 16), 
+          // can be empty {}
+          "parameters": {
+            selectedPram:selectedOption
+          },
+           "userType": user.id,
+            //title, price, discount ?catId=Ys5xqul03ShxJcUNx4Ij-1707937854885141
+           // can be null
+            "sortParam": sortOption, 
+            "desc": Desc,
+             "discount": Disc
+             });
+      return response.data.data;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      return null;
+    }
+  };
+  const activeFilter = ()=>{
+    postSelectedFilter().then((data)=>{
+      console.log(data)
+      // if (data != null) { setCatProd(data) }
+    })
+  }
+  const RangeSliderChange =(e)=>{
+    console.log(e,Rang)
+    SetRang(e)
+  }
   useEffect(() => {
     fetchProducts().then((data) => {
         console.log(data)
       if (data != null) { setCatProd(data) }
     });
+    fetchCateFilter().then((data) => {
+        console.log(data)
+      if (data != null) { setCateFilter(data) }
+    });
 
 }, [])
-  // const fetchCat = async () => {
+  // const fetchCat = async () => {Ys5xqul03ShxJcUNx4Ij-1707937854885141
   //   console.log(selectedCategory)
   //   try {
   //     const response = await axios.get(`https://backend.touchtechco.com/fieldGen?coll=products&filedName=categoryId&filedValue=${selectedCategory}`);
@@ -167,7 +185,7 @@ const [Rang,useRang]=useState([]);
               <Menu as="div" className="relative inline-block text-left">
                 <div>
                   <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-900 hover:text-black">
-                    Sort
+                    {sortOption}
                     <ChevronDownIcon
                       className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
@@ -186,7 +204,9 @@ const [Rang,useRang]=useState([]);
                   <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
                       {sortOptions.map((option) => (
-                        <Menu.Item key={option.name}>
+                        <Menu.Item 
+                        onClick={()=>{setSortOption(option.name)}}
+                        key={option.name}>
                           {({ active }) => (
                             <a
                               href={option.href}
@@ -273,9 +293,12 @@ const [Rang,useRang]=useState([]);
               </div>
               {/* Filters */}
                <form className="hidden lg:block">
-                <h3 className="sr-only">Price 💲</h3>
+                <h3 className="">Price 💲</h3>
 
-                <RangeSlider defaultValue={[1000,5000]} value={Rang} min={100} max={100000} step={1} />
+                {/* <RangeSlider defaultValue={[1000,5000]} value={Rang} min={100} max={25000} step={100}
+                onInput={()=>{RangeSliderChange}} /> */}
+                {`${Rang[0]} - ${Rang[1]}`}
+                <Slider range   min={100} max={25000} onChange={RangeSliderChange}  allowCross={false}/>
                  
                  
                   <Disclosure
@@ -306,69 +329,82 @@ const [Rang,useRang]=useState([]);
                         </h3>
                         <Disclosure.Panel className="pt-6">
                           <div className="space-y-4">
-                          <ColorPicker color={color} onChange={setColor} />;
+                          <ColorPicker hideInput={["rgb", "hsv"]} color={color} onChange={setColor} />;
                           </div>
                         </Disclosure.Panel>
                       </>
                     )}
                   </Disclosure>
-                  <Disclosure
-                    as="div"
-                    key={"altid"}
-                    className="border-b border-gray-200 py-6">
-                    {({ open }) => (
-                      <>
-                        <h3 className="-my-3 flow-root">
-                          <Disclosure.Button className="flex w-full items-center justify-between rounded-lg bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
-                            <span className="font-medium text-gray-900">
-                              category
-                            </span>
-                            <span className="ml-6 flex items-center">
-                              {open ? (
-                                <MinusIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
-                              ) : (
-                                <PlusIcon
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
-                              )}
-                            </span>
-                          </Disclosure.Button>
-                        </h3>
-                        <Disclosure.Panel className="pt-6">
-                          <div className="space-y-4">
-                            {categories.map((option, optionIdx) => (
-                              <div
-                                key={option.title}
-                                className="flex items-center">
-                                <input
-                                  id={`filter-${option.id}-${optionIdx}`}
-                                  name={`${option.id}[]`}
-                                  defaultValue={option.title}
-                                  type="checkbox"
-                                  defaultChecked={checked}
-                                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                  onClick={(e, categoryId = option.id) => {
-                                    setChecked(!checked)
-                                    dispatch(setSelectedCategory(option.id));
-                                  }}
-                                />
-                                <label
-                                  htmlFor={`filter-${option.id}-${optionIdx}`}
-                                  className="ml-3 text-sm text-gray-900">
-                                  {option.title}
-                                </label>
-                              </div>
-                            ))}
-                          </div>
-                        </Disclosure.Panel>
-                      </>
-                    )}
-                  </Disclosure>
+                  {
+                    cateFilter.parameters?.map((parameter)=>(
+                      <Disclosure
+                      as="div"
+                      key={parameter.id}
+                      id={parameter.id}
+                      className="border-b border-gray-200 py-6"
+                      onClick={()=>{
+                        setParameter(parameter.id)
+                      }}>
+                      {({ open }) => (
+                        <>
+                          <h3 className="-my-3 flow-root">
+                            <Disclosure.Button className="flex w-full items-center justify-between rounded-lg bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
+                              <span className="font-medium text-gray-900">
+                                {parameter.title}
+                              </span>
+                              <span className="ml-6 flex items-center">
+                                {open ? (
+                                  <MinusIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
+                                ) : (
+                                  <PlusIcon
+                                    className="h-5 w-5"
+                                    aria-hidden="true"
+                                  />
+                                )}
+                              </span>
+                            </Disclosure.Button>
+                          </h3>
+                          <Disclosure.Panel className="pt-6">
+                            <div className="space-y-4">
+                              {parameter.options.map((option, optionIdx) => (
+                                <div
+                                  key={option.title}
+                                  className="flex items-center">
+                                  <input
+                                    id={`${option.id}`}
+                                    name={`${option.id}[]`}
+                                    defaultValue={option.id}
+                                    type="checkbox"
+                                    defaultChecked={checked}
+                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                    onClick={() => {
+                                      setChecked(!checked)
+                                      setSelectedOption(option.id);
+                                    }}
+                                  />
+                                  <label
+                                    htmlFor={`${option.id}`}
+                                    className="ml-3 text-sm text-gray-900">
+                                    {option.title}
+                                  </label>
+                                </div>
+                              ))}
+                            </div>
+                          </Disclosure.Panel>
+                        </>
+                      )}
+                    </Disclosure>
+                    ))
+                  }
                 
+                <label htmlFor='Desc'>Desc</label>
+                <input type="checkbox" id="Desc" onClick={()=>{setDesc(!Desc)}} />
+                <label htmlFor='Disc'>Disc</label>
+                <input type="checkbox" id="Disc" onClick={()=>{setDisc(!Disc)}} />
+                <button onClick={activeFilter} >Active filter</button>
               </form> 
             </div>
           </section>
