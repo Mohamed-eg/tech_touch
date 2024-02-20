@@ -37,7 +37,7 @@ const HOME = () => {
   };
   const fetchUser = async (userID: String | undefined) => {
     try {
-      const response = await axios.get(`https://backend.touchtechco.com/userGen?coll=users&userId=${userID}`);
+      const response = await axios.get(`https://backend.touchtechco.com/fieldGen?coll=users&filedName=id&filedValue=${userID}`);
       return response.data.data;
     } catch (error) {
       console.error('Error fetching data:', error);

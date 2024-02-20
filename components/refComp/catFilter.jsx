@@ -63,9 +63,13 @@ export default function Categorypage() {
     const userId =auth.currentUser?.uid;
 const searchParams = useSearchParams();
 const query = searchParams.get('catId');
-const [Rang,SetRang]=useState([1000,5000]);
+const [Rang,SetRang]=useState([0,25000]);
   const [cateFilter,setCateFilter]=useState([]);
-  const [selectedPram,setParameter] = useState('');
+  const [selectedPram,setParameter] = useState({});
+  // const [myPram,setmyPram] = useState(cateFilter.parameters.map((param)=>({
+  //   [param.id]:
+  //   param.map((op)=>(op.id))
+  // })));
   const [selectedOption,setSelectedOption] = useState('');
   const [sortOption,setSortOption] = useState(null);
   const [catProd,setCatProd] = useState([]);
@@ -83,9 +87,17 @@ const [Rang,SetRang]=useState([1000,5000]);
 //   const Slider = require('rc-slider');
 //   const createSliderWithTooltip = Slider.createSliderWithTooltip;
 // const Range = createSliderWithTooltip(Slider.Range);
+
+const myprameFu= (pram,opt)=>{
+  const updatedPram ={...selectedPram}
+  updatedPram[pram] = opt
+  // const mypram =pram
+  setParameter(updatedPram)
+}
   const user = useSelector(
-    (state) => state.user
+    (state) => state.user.user
   );
+
     const dispatch = useDispatch();
   const fetchProducts = async () => {
     try {
@@ -106,18 +118,16 @@ const [Rang,SetRang]=useState([1000,5000]);
     }
   };
   const postSelectedFilter = async () => {
-    console.log( Rang[0], Rang[1],parseInt(color.substring(1), 16),selectedPram,selectedOption,user)
+    console.log( Rang[0], Rang[1],parseInt(color.hex?.substring(1), 16),selectedPram,user,sortOption,Desc,Disc)
     try {
       const response = await axios.post(`https://backend.touchtechco.com/filter?catId=${query}`,{
         "minPrice": Rang[0],
          "maxPrice": Rang[1],
          // can be null
-          "color": parseInt(color.substring(1), 16), 
+          "color":  `${parseInt(color.hex.substring(1), 16)}`, 
           // can be empty {}
-          "parameters": {
-            selectedPram:selectedOption
-          },
-           "userType": user.id,
+          "parameters": selectedPram,
+           "userType": user?.userType,
             //title, price, discount ?catId=Ys5xqul03ShxJcUNx4Ij-1707937854885141
            // can be null
             "sortParam": sortOption, 
@@ -133,11 +143,10 @@ const [Rang,SetRang]=useState([1000,5000]);
   const activeFilter = ()=>{
     postSelectedFilter().then((data)=>{
       console.log(data)
-      // if (data != null) { setCatProd(data) }
+      if (data != null) { setCatProd(data) }
     })
   }
   const RangeSliderChange =(e)=>{
-    console.log(e,Rang)
     SetRang(e)
   }
   useEffect(() => {
@@ -298,7 +307,7 @@ const [Rang,SetRang]=useState([1000,5000]);
                 {/* <RangeSlider defaultValue={[1000,5000]} value={Rang} min={100} max={25000} step={100}
                 onInput={()=>{RangeSliderChange}} /> */}
                 {`${Rang[0]} - ${Rang[1]}`}
-                <Slider range   min={100} max={25000} onChange={RangeSliderChange}  allowCross={false}/>
+                <Slider range defaultValue={Rang}  min={100} max={25000} onChange={RangeSliderChange}  allowCross={false}/>
                  
                  
                   <Disclosure
@@ -329,7 +338,8 @@ const [Rang,SetRang]=useState([1000,5000]);
                         </h3>
                         <Disclosure.Panel className="pt-6">
                           <div className="space-y-4">
-                          <ColorPicker hideInput={["rgb", "hsv"]} color={color} onChange={setColor} />;
+                          <ColorPicker hideInput={["rgb", "hsv"]} color={color} onChange={()=>{setColor 
+                            console.log(color)}} />;
                           </div>
                         </Disclosure.Panel>
                       </>
@@ -342,9 +352,7 @@ const [Rang,SetRang]=useState([1000,5000]);
                       key={parameter.id}
                       id={parameter.id}
                       className="border-b border-gray-200 py-6"
-                      onClick={()=>{
-                        setParameter(parameter.id)
-                      }}>
+                      >
                       {({ open }) => (
                         <>
                           <h3 className="-my-3 flow-root">
@@ -376,12 +384,13 @@ const [Rang,SetRang]=useState([1000,5000]);
                                   <input
                                     id={`${option.id}`}
                                     name={`${option.id}[]`}
-                                    defaultValue={option.id}
-                                    type="checkbox"
-                                    defaultChecked={checked}
+                                    value={option.id}
+                                    type="radio"
+                                    checked={option.id===selectedOption}
                                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                     onClick={() => {
-                                      setChecked(!checked)
+                                      setChecked(!checked);
+                                      myprameFu(parameter.id ,option.id)
                                       setSelectedOption(option.id);
                                     }}
                                   />
@@ -400,11 +409,17 @@ const [Rang,SetRang]=useState([1000,5000]);
                     ))
                   }
                 
-                <label htmlFor='Desc'>Desc</label>
+               <div className="flex flex-col">
+               <div>
+               <label htmlFor='Desc'>Desc</label>
                 <input type="checkbox" id="Desc" onClick={()=>{setDesc(!Desc)}} />
+               </div>
+                <div>
                 <label htmlFor='Disc'>Disc</label>
                 <input type="checkbox" id="Disc" onClick={()=>{setDisc(!Disc)}} />
-                <button onClick={activeFilter} >Active filter</button>
+                </div>
+                <button type="button" onClick={activeFilter}>Active filter</button>
+               </div>
               </form> 
             </div>
           </section>
