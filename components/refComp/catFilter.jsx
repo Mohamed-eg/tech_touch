@@ -80,6 +80,7 @@ const [Rang,SetRang]=useState([0,25000]);
   const AllProducts = useSelector((state) => state.categories.allproducts);
   const categories = useSelector((state) => state.categories.allCategories)
   const [color, setColor] = useColor("#123123");
+  const [myColor, setMyColor] = useState(null);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(true);
   const selectedCategory = useSelector(
     (state) => state.categories.selectedCategory
@@ -118,13 +119,13 @@ const myprameFu= (pram,opt)=>{
     }
   };
   const postSelectedFilter = async () => {
-    console.log( Rang[0], Rang[1],parseInt(color.hex?.substring(1), 16),selectedPram,user,sortOption,Desc,Disc)
+    console.log( Rang[0], Rang[1],parseInt(myColor.hex?.substring(1), 16),selectedPram,user,sortOption,Desc,Disc)
     try {
       const response = await axios.post(`https://backend.touchtechco.com/filter?catId=${query}`,{
         "minPrice": Rang[0],
          "maxPrice": Rang[1],
          // can be null
-          "color":  `${parseInt(color.hex.substring(1), 16)}`, 
+          "color":  `${parseInt(myColor.hex.substring(1), 16)}`, 
           // can be empty {}
           "parameters": selectedPram,
            "userType": user?.userType,
@@ -317,7 +318,7 @@ const myprameFu= (pram,opt)=>{
                     {({ open }) => (
                       <>
                         <h3 className="-my-3 flow-root">
-                          <Disclosure.Button className="flex w-full items-center justify-between rounded-lg bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
+                          <Disclosure.Button onClick={()=>{setMyColor(color)}} className="flex w-full items-center justify-between rounded-lg bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
                             <span className="font-medium text-gray-900">
                               color
                             </span>
@@ -338,8 +339,7 @@ const myprameFu= (pram,opt)=>{
                         </h3>
                         <Disclosure.Panel className="pt-6">
                           <div className="space-y-4">
-                          <ColorPicker hideInput={["rgb", "hsv"]} color={color} onChange={()=>{setColor 
-                            console.log(color)}} />;
+                          <ColorPicker hideInput={["rgb", "hsv"]} color={color} onChange={setColor} />;
                           </div>
                         </Disclosure.Panel>
                       </>
