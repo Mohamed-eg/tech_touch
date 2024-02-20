@@ -383,16 +383,16 @@ const myprameFu= (pram,opt)=>{
                                   className="flex items-center">
                                   <input
                                     id={`${option.id}`}
-                                    name={`${option.id}[]`}
-                                    value={option.id}
-                                    type="radio"
-                                    checked={option.id===selectedOption}
-                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                     onClick={() => {
-                                      setChecked(!checked);
+                                      // setChecked(!checked);
                                       myprameFu(parameter.id ,option.id)
-                                      setSelectedOption(option.id);
+                                      // setSelectedOption(option.id);
                                     }}
+                                    name={`${option.id}[]`}
+                                    value={option.id} 
+                                    type="checkbox"
+                                    checked={Object.values(selectedPram).includes(option.id)}
+                                    className="h-4 w-4 rounded border-gray-900 text-indigo-600 focus:ring-indigo-500"
                                   />
                                   <label
                                     htmlFor={`${option.id}`}
@@ -410,15 +410,15 @@ const myprameFu= (pram,opt)=>{
                   }
                 
                <div className="flex flex-col">
-               <div>
+               <div className="flex justify-between m-2">
                <label htmlFor='Desc'>Desc</label>
-                <input type="checkbox" id="Desc" onClick={()=>{setDesc(!Desc)}} />
+                <input className="h-4 w-4 rounded border-gray-900 text-indigo-600 focus:ring-indigo-500" type="checkbox" id="Desc" onClick={()=>{setDesc(!Desc)}} />
                </div>
-                <div>
+                <div className="flex justify-between m-2">
                 <label htmlFor='Disc'>Disc</label>
-                <input type="checkbox" id="Disc" onClick={()=>{setDisc(!Disc)}} />
+                <input className="h-4 w-4 rounded border-gray-900 text-indigo-600 focus:ring-indigo-500" type="checkbox" id="Disc" onClick={()=>{setDisc(!Disc)}} />
                 </div>
-                <button type="button" onClick={activeFilter}>Active filter</button>
+                <button className="p-3 rounded-xl bg-primary1 border-none cursor-pointer text-white text-lg" type="button" onClick={activeFilter}>apply filter</button>
                </div>
               </form> 
             </div>
