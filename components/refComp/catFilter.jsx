@@ -44,7 +44,7 @@ import { setCategories } from "../../src/redux/slices/categoriesSlice";
 
 
 const sortOptions = [
-  { value:"Titel",name: "Titel", href: "#", current: true },
+  { value:"Title",name: "Title", href: "#", current: true },
   { value:"Price",name: "Price", href: "#", current: true },
   { value:"Discount",name: "Discount", href: "#", current: true },
   { value: null ,name: "None", href: "#", current: true },

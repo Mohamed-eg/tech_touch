@@ -15,11 +15,12 @@ import LogImg from "../../public/background@2x.png";
 // import message from "../../public/icons/Message.svg";
 import {auth} from "../../src/firebase/firebase";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setCurrentUser } from "../../src/redux/slices/categoriesSlice";
 // import { useRouter } from "next/navigation";
 export default function SignIn() {
+  const dispatch =useDispatch()
   const router =useRouter()
     const [otp, setOtp] = useState("");
     const [ph, setPh] = useState("");
@@ -65,6 +66,7 @@ export default function SignIn() {
           toast.success("OTP sended successfully!");
         })
         .catch((error) => {
+           console.log(auth,formatPh,appVerifier);
           console.log(error);
           setLoading(false);
         });
@@ -86,7 +88,7 @@ export default function SignIn() {
         .then(async (res) => {
           const uid =res.user.uid
           console.log(uid);
-          setCurrentUser(uid);
+          dispatch(setCurrentUser(uid));
           console.log(reduxID)
           getmydata(uid).then((res)=>{
             console.log(res)
@@ -96,8 +98,9 @@ export default function SignIn() {
                 toast.success(`Welcome ${res.data.name}`);
                 router.push('/')
               }else{toast.success("Please create your account first");
-              router.push('/signup')
-            } 
+              router.push('/signup')}
+            }else{
+            toast.error("invaled OPT");
             }
             
           })
@@ -177,7 +180,7 @@ export default function SignIn() {
                 >
                   Verify your phone number
                 </label>
-                <PhoneInput country={"ps"} value={ph} disableDropdown onChange={setPh} />
+                <PhoneInput country={"il"} value={ph} countryCodeEditable={false} disableDropdown onChange={setPh} />
                 <button
                   onClick={onSignup}
                   className=" bg-[#1070af] w-[50%] flex gap-1 items-center border-none m-auto justify-center py-2.5 text-white rounded"
