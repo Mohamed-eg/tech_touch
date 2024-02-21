@@ -44,10 +44,10 @@ import { setCategories } from "../../src/redux/slices/categoriesSlice";
 
 
 const sortOptions = [
-  { name: "Titel", href: "#", current: true },
-  { name: "Price", href: "#", current: true },
-  { name: "Discount", href: "#", current: true },
-  { name: "None", href: "#", current: true },
+  { value:"Titel",name: "Titel", href: "#", current: true },
+  { value:"Price",name: "Price", href: "#", current: true },
+  { value:"Discount",name: "Discount", href: "#", current: true },
+  { value: null ,name: "None", href: "#", current: true },
 ];
 
 function classNames(...classes) {
@@ -213,9 +213,10 @@ const myprameFu= (pram,opt)=>{
                   leaveTo="transform opacity-0 scale-95">
                   <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
+                      Sort
                       {sortOptions.map((option) => (
                         <Menu.Item 
-                        onClick={()=>{setSortOption(option.name)}}
+                        onClick={()=>{setSortOption(option.value)}}
                         key={option.name}>
                           {({ active }) => (
                             <a
@@ -279,7 +280,7 @@ const myprameFu= (pram,opt)=>{
             
                               <div className={`w-[51px] h-[26px] absolute top-2 left-2 !rounded-lg text-white text-center leading-[26px] bg-scondry ${!p.isNew && "hidden"} `}>new</div>
             
-                              <button /*onClick={(mouse_event, categore = p.categories, id = p.id, name = p.name, url = p.url, prise = p.prise, colors = p.colors[0].color) => dispatch(addToCart({ id, name, url, prise, colors, categore }))}*/
+                              <button 
                                 className="w-[240px] h-[40px] absolute text-white  bottom-[-40px] group-hover:bottom-[0px] z-10 text-xl duration-300 p-1 cursor-pointer bg-scondry border-none flex items-center justify-center flex-row"
                               ><Image alt="img" className="w-[24px] mr-[10px] h-[24px]" src={cartIcon} /><p className="m-0">add to cart</p></button>
                             </Link>
@@ -411,11 +412,11 @@ const myprameFu= (pram,opt)=>{
                 
                <div className="flex flex-col">
                <div className="flex justify-between m-2">
-               <label htmlFor='Desc'>Desc</label>
+               <label htmlFor='Desc'>Descending</label>
                 <input className="h-4 w-4 rounded border-gray-900 text-indigo-600 focus:ring-indigo-500" type="checkbox" id="Desc" onClick={()=>{setDesc(!Desc)}} />
                </div>
                 <div className="flex justify-between m-2">
-                <label htmlFor='Disc'>Disc</label>
+                <label htmlFor='Disc'>Discount</label>
                 <input className="h-4 w-4 rounded border-gray-900 text-indigo-600 focus:ring-indigo-500" type="checkbox" id="Disc" onClick={()=>{setDisc(!Disc)}} />
                 </div>
                 <button className="p-3 rounded-xl bg-primary1 border-none cursor-pointer text-white text-lg" type="button" onClick={activeFilter}>apply filter</button>
