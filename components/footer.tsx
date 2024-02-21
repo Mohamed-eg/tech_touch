@@ -72,7 +72,7 @@ const FooterComp: NextPage<FrameComponentType> = ({
       style={frameDivStyle}
     >
       <div className="flex flex-col items-start justify-start gap-[42px]">
-        <div className="w-[1170px]  flex flex-row items-start justify-between">
+        <div className="w-[90vw]  flex flex-row items-start justify-between">
           <div className=" flex flex-col items-start justify-start gap-[24px] text-mini text-steam-color">
             <Image alt="img"
               className="relative w-[103px] h-[71px] object-cover"
@@ -189,9 +189,9 @@ const FooterComp: NextPage<FrameComponentType> = ({
             </div>
           </div>
         </div>
-        <div className=" flex flex-col items-start justify-start gap-[20px] text-mini text-steam-color">
+        <div className=" flex flex-col items-start justify-start gap-[20px] w-full text-mini text-steam-color">
           <div className="relative box-border w-full h-[0.8px] border-t-[0.8px] border-solid border-steam-color" />
-          <div className=" flex flex-row items-center justify-start gap-[687px]">
+          <div className=" flex flex-row items-center justify-start ">
             <div className="relative font-semibold">
               {"@ 2023 DIVANO. All Rights Reserved"}
             </div>
