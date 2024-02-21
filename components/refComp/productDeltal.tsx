@@ -24,9 +24,6 @@ const ProductDeltal = (producDeta: any) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams.get('id');
-  // const url =  ?.location.href;
-  // const parts = url.split('/');
-  // const productId = producDeta.id;
   const uid = auth.currentUser?.uid
   const milliseconds = Date.now();
   const isoDate = new Date(milliseconds).toISOString();
@@ -58,66 +55,26 @@ const ProductDeltal = (producDeta: any) => {
           "https://picsum.photos/id/802/500/200",
           "https://picsum.photos/id/443/500/200"
         ]
-      },
-      {
-        "color": "4291155553.0",
-        "images": [
-          "https://picsum.photos/id/946/500/200",
-          "https://picsum.photos/id/253/500/200",
-          "https://picsum.photos/id/248/500/200",
-          "https://picsum.photos/id/756/500/200",
-          "https://picsum.photos/id/517/500/200",
-          "https://picsum.photos/id/661/500/200"
-        ]
-      },
-      {
-        "color": "4279724855.0",
-        "images": [
-          "https://picsum.photos/id/123/500/200",
-          "https://picsum.photos/id/628/500/200",
-          "https://picsum.photos/id/404/500/200",
-          "https://picsum.photos/id/80/500/200",
-          "https://picsum.photos/id/359/500/200",
-          "https://picsum.photos/id/595/500/200",
-          "https://picsum.photos/id/279/500/200",
-          "https://picsum.photos/id/729/500/200",
-          "https://picsum.photos/id/521/500/200",
-          "https://picsum.photos/id/274/500/200"
-        ]
-      },
-      {
-        "color": "4287002349.0",
-        "images": [
-          "https://picsum.photos/id/383/500/200",
-          "https://picsum.photos/id/564/500/200",
-          "https://picsum.photos/id/904/500/200",
-          "https://picsum.photos/id/989/500/200",
-          "https://picsum.photos/id/908/500/200",
-          "https://picsum.photos/id/764/500/200"
-        ]
-      },
-      {
-        "color": "4294836969.0",
-        "images": [
-          "https://picsum.photos/id/670/500/200",
-          "https://picsum.photos/id/408/500/200",
-          "https://picsum.photos/id/535/500/200",
-          "https://picsum.photos/id/900/500/200",
-          "https://picsum.photos/id/82/500/200",
-          "https://picsum.photos/id/598/500/200",
-          "https://picsum.photos/id/962/500/200",
-          "https://picsum.photos/id/455/500/200",
-          "https://picsum.photos/id/180/500/200",
-          "https://picsum.photos/id/528/500/200",
-          "https://picsum.photos/id/987/500/200",
-          "https://picsum.photos/id/127/500/200",
-          "https://picsum.photos/id/579/500/200"
-        ]
       }
     ],
     "categoryId": "yp5TPQn12lk0l4UKyj8b-1704629558972540",
     "discount": null
   })
+
+  const user = useSelector(
+    (state: any) => state.user.user
+  );
+  const showedPrice = (p: any) => {
+    switch (user?.userType) {
+      case "middle":
+        return p.middlePrice;
+      case "trader":
+        return p.traderPrice;
+      default:
+        return p.userPrice;
+    }
+
+  }
   const [color, setColor] = useState("")
   const [quantity, setQuantity] = useState(0)
   const [SimilarProducts, setSimilarProducts] = useState([])
@@ -222,10 +179,10 @@ const ProductDeltal = (producDeta: any) => {
           <div className="flex flex-col items-start justify-start ml-16 w-[30%] text-black">
             <div className="">
               <h1>{myproduct?.title}</h1>
-              <h2 className="text-blue text-xl">{`${parseFloat(myproduct?.userPrice.toFixed(2))} EGP`}</h2>
+              <h2 className="text-blue text-xl">{`${parseFloat(showedPrice(myproduct).toFixed(2))} EGP`}</h2>
               <p>{myproduct?.longDesc}</p>
             </div>
-            <form action="" onSubmit={(event) => handelSubmit(event, myproduct?.id, quantity, color, myproduct?.colors.find((e: any) => e.color === color)?.images[0], myproduct?.title, myproduct?.shortDesc, myproduct?.longDesc, myproduct?.userPrice)}>
+            <form action="" onSubmit={(event) => handelSubmit(event, myproduct?.id, quantity, color, myproduct?.colors.find((e: any) => e.color === color)?.images[0], myproduct?.title, myproduct?.shortDesc, myproduct?.longDesc, showedPrice(myproduct))}>
               <div>
                 <div>
                   <span>Colours</span>
@@ -253,7 +210,7 @@ const ProductDeltal = (producDeta: any) => {
                 <div>
                   <button type="submit" className="bg-blue cursor-pointer hover:bg-primary1 text-white rounded-xl mx-2 px-10 py-3 border-none outline-none">Add to cart</button>
                   <button type="button" className={`rounded-lg bg-white border p-2 border-[#eee] hover:shadow-lg cursor-pointer outline-none ${myList?.find((p: any) => p.productId === myproduct.id) ? "loved" : "unloved"} `}><FontAwesomeIcon
-                    onClick={(mouse_event, id = randomeId, productId = myproduct.id, productData = { title: myproduct.title, userPrice: myproduct.userPrice, colors: myproduct.colors }, List = myList) => {
+                    onClick={(mouse_event, id = randomeId, productId = myproduct.id, productData = { title: myproduct.title, userPrice: showedPrice(myproduct), colors: myproduct.colors }, List = myList) => {
                       userId && dispatch(addToList({ id, productId, productData, userId: userId, List }))
                     }}
                     icon={faHeart} className="" /></button>
@@ -301,7 +258,7 @@ const ProductDeltal = (producDeta: any) => {
                   <div className="relative flex flex-col normal-border w-full leading-[20px] font-semibold">
                     <div className="w-full relative hover: flex flex-col rounded-xl z-0 h-[250px] items-center bg-slate-100 overflow-hidden">
 
-                      <FontAwesomeIcon onClick={(mouse_event, id = randomeId, productId = product.id, productData = { title: product.title, userPrice: product.prise, colors: product.colors }, List = myList) => {
+                      <FontAwesomeIcon onClick={(mouse_event, id = randomeId, productId = product.id, productData = { title: product.title, userPrice: showedPrice(product), colors: product.colors }, List = myList) => {
                         userId && dispatch(addToList({ id, productId, productData, userId: userId, List }))
                       }} icon={faHeart} className={`w-[18px] ${myList?.find((p: any) => p.productId === product.id) ? "loved" : "unloved"} cursor-pointer h-[18px] absolute right-2 top-2 text-[#bcbbbb] bg-white p-2 rounded-full`} />
                       <Link href={`/productDeta/id?id=${product.id}`}>
@@ -313,7 +270,7 @@ const ProductDeltal = (producDeta: any) => {
                     </div>
                     <div>
                       <p className="text-black">{product.title}</p>
-                      <span className="">{`${product.userPrice} EGP`}</span>
+                      <span className="">{`${showedPrice(product)} EGP`}</span>
                     </div>
                     <div className="my-[10px] flex flex-wrap w-full text-white ml-[-10px]">
                       {product.colors.map((e: any) => {

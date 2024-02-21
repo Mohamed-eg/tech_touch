@@ -56,7 +56,7 @@ const Property1Default1: NextPage<Property1Default1Type> = ({
 
   return (
     <div
-      className="rounded-3xs bg-lead overflow-hidden flex flex-row items-center justify-center py-[13px] px-[42px] text-center text-5xl text-secondary-colors-white font-nunito-sans"
+      className="rounded-3xs bg-lead overflow-hidden flex flex-row items-center text-lg max-sm:!text-[12px] justify-center py-[13px] px-[42px] max-md:!py-1 max-md:!h-auto  max-md:text-lg text-centers text-secondary-colors-white font-nunito-sans"
       style={property1DefaultStyle}
     >
       <b className="relative" style={shopNow1Style}>

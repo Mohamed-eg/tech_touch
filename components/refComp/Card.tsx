@@ -221,13 +221,6 @@ const Cart = (params: any) => {
               </Link>
             </div>
             <div className="self-stretch  flex flex-row items-start justify-start gap-[173px]">
-              {/* <div className=" flex flex-row items-end justify-start gap-[16px]">
-                <input type="text" placeholder="Coupon code" className="rounded-lg outline-none text-[18px] bg-text w-[300px] overflow-hidden py-4 px-6 border-[1px] border-solid border-text">
-                </input>
-                <div className="rounded-lg cursor-pointer bg-primary text-[18px] py-4 px-12 text-bg">
-                  Apply Coupon
-                </div>
-              </div> */}
               <div className="flex-1 rounded-2xl shadow-[0px_0px_5px_rgba(12,_26,_75,_0.04),_0px_4px_20px_-2px_rgba(50,_50,_71,_0.02)] overflow-hidden flex flex-col items-start justify-start py-8 px-6 gap-[32px] border-[1.5px] border-solid border-gray-200">
                 <div className="flex flex-col items-start justify-start gap-[24px]">
                   <div className="relative text-xl leading-[28px] font-medium">

@@ -36,7 +36,8 @@
     "components/best-selling.jsx",
     "components/card-with-links-and-text.jsx",
     "components/new-arrival.jsx",
-    "src/app/cart/[uid]/page.tsx"
+    "src/app/cart/[uid]/page.tsx",
+    "components/refComp/onePageProdac.jsx"
   ],
   "exclude": [
     "node_modules"

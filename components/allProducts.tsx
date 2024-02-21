@@ -17,7 +17,7 @@ const AllProducts: NextPage = (props: any) => {
     {AllProducts ? null : <div><h1>Loding.....</h1></div>}
     <Swiper
       // ref={swiperRef}
-      className="!flex justify-center items-cente mb-36 !w-[80vw]"
+      className="!flex justify-center items-cente max-md:!ml-0 mb-36 !w-[80vw]"
       modules={[Navigation, Pagination]}
       spaceBetween={200}
       slidesPerView={1}

@@ -93,9 +93,9 @@ export default function SignIn() {
             if(res.code===200){
               console.log(res.data)
               if(res.data.length !=0 ){
-                toast.error(`Welcome ${res.data.name}`);
+                toast.success(`Welcome ${res.data.name}`);
                 router.push('/')
-              }else{toast.error("Please create your account first");
+              }else{toast.success("Please create your account first");
               router.push('/signup')
             } 
             }

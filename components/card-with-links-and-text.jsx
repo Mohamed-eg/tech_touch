@@ -6,8 +6,8 @@ const CardWithLinksAndText = (props) => {
   return (
     <div className=" flex flex-col items-start group justify-start gap-[16px] text-left text-base text-text2 font-title-20px-semibold">
       <Link
-        className="cursor-pointer [text-decoration:none] relative rounded-xl bg-secondary w-[270px] h-[250px] overflow-hidden   "
-        href="/product-details-page"
+        className="cursor-pointer [text-decoration:none] relative rounded-xl bg-secondary w-full h-[250px] overflow-hidden   "
+        href={`/productDeta/id?id=${props.id}`}
       >
         <Image  width={5} height={5} alt="img"
           className="absolute top-[8px] right-[8px] max-w-full overflow-hidden max-h-full"
@@ -21,7 +21,7 @@ const CardWithLinksAndText = (props) => {
           src={props?.imageLink}
         />
       </div>
-        <button /*onClick={(mouse_event, categore = product.categories, id = product.id, name = product.name, url = product.url, prise = product.prise, colors = product.colors[0].color) => dispatch(addToCart({ id, name, url, prise, colors, categore }))}*/
+        <button
                     className="w-[270px] h-[40px] absolute text-white  bottom-[-40px] group-hover:bottom-[0px] z-10 text-xl duration-300 p-1 cursor-pointer bg-scondry border-none flex items-center justify-center flex-row"
                   ><Image alt="img" className="w-[24px] mr-[10px] h-[24px]" src={cartIcon} /><p className="m-0">add to cart</p></button>
       </Link>

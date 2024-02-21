@@ -36,7 +36,7 @@ const BestSelling = () => {
               propMargin="0"
             />
           </div>
-          <div className=" flex flex-row items-start overflow-hidden justify-start gap-[30px]">
+          <div className=" flex flex-row items-start overflow-hidden max-md:w-[90vw] justify-start gap-[30px]">
 
         <Swiper
           className="!flex justify-center items-center w-[90vw]"
@@ -52,7 +52,7 @@ const BestSelling = () => {
         {data?null:<h1 className=" text-primary1">Loding....</h1>}
           {data?.map(p=>{
             return (
-              <SwiperSlide className="!mx-10 !w-[250px]" key={`best-prode${p.id}`}>
+              <SwiperSlide className="!mx-10 max-md:!mx-2 max-md:!w-[220px] max-md:!h-[220px]  !w-[250px]" key={`best-prode${p.id}`}>
                 <Link href={userId ? `/productDeta/id?id=${p.id}` : `./login`}>
               <CardWithLinksAndText
                 title={p.title}

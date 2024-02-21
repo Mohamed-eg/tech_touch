@@ -97,7 +97,7 @@ const HOME = () => {
   }, [myuser])
 
   return (
-    <main className="relative bg-secondary-colors-white w-full overflow-hidden">
+    <main className="relative bg-secondary-colors-white h-auto w-full overflow-hidden">
       <div className="relative top-[0px] left-[0px] w-full overflow-hidden flex flex-col items-center justify-start">
         <MainHeader />
         <Hero />
