@@ -140,9 +140,9 @@ const FooterComp: NextPage<FrameComponentType> = ({
             </div>
           </div>
           <div className=" flex flex-col items-start justify-start gap-[24px] text-xl text-text font-title-20px-semibold">
-            <div className="relative leading-[28px] font-medium">
+            {/* <div className="relative leading-[28px] font-medium">
               Download App
-            </div>
+            </div> */}
             <div className=" flex flex-col items-start justify-start">
               <div className=" flex flex-row items-center justify-start gap-[8px]">
                 {/* <QrCode
