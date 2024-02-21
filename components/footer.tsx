@@ -191,7 +191,7 @@ const FooterComp: NextPage<FrameComponentType> = ({
         </div>
         <div className=" flex flex-col items-start justify-start gap-[20px] w-full text-mini text-steam-color">
           <div className="relative box-border w-full h-[0.8px] border-t-[0.8px] border-solid border-steam-color" />
-          <div className=" flex flex-row items-center justify-start ">
+          <div className=" flex flex-row items-center justify-between w-full ">
             <div className="relative font-semibold">
               {"@ 2023 DIVANO. All Rights Reserved"}
             </div>
