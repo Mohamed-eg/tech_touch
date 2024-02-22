@@ -94,7 +94,7 @@ const isitcheaked = () => {
 };
 
 export default function Categorypage() {
-  const [Ads,setAds]=useState({})
+  const [Ads,setAds]=useState([])
   const [catProd,setCatProd] = useState([]);
   const [checked,setChecked] = useState(false)
   const AllProducts = useSelector((state) => state.categories.allproducts);
@@ -158,50 +158,30 @@ export default function Categorypage() {
         <main className="mx-auto mt-[200px] max-w-7xl  px-4 sm:px-6 lg:px-8">
           <div className="w-full !flex justify-center  rounded-xl items-center overflow-hidden">
             <Swiper
-              className="!flex justify-center  !p-0 rounded-xl !w-[100vw] items-center"
+              className="!flex justify-center max-md:h-48  !p-0 rounded-xl !w-[100vw] items-center"
               modules={[Pagination , Autoplay]}
               spaceBetween={30}
               loop={true}
               autoplay={{
-                delay: Ads?Ads.activeSeconds*1000:3000,
+                delay: Ads?Ads[0].activeSeconds*1000:3000,
                 disableOnInteraction: false,
               }}
               pagination={{ clickable: true }}>
-              <SwiperSlide className=" rounded-xl">
-                <Image
-                  alt="img"
-                  className={Ads?.imageUrl}
-                  src={slidesImg}
-                />
-              </SwiperSlide>
-              <SwiperSlide className=" rounded-xl">
-                <Image
-                  alt="img"
-                  className={Ads?.imageUrl}
-                  src={slidesImg}
-                />
-              </SwiperSlide>
-              <SwiperSlide className=" rounded-xl">
-                <Image
-                  alt="img"
-                  className={Ads?.imageUrl}
-                  src={slidesImg}
-                />
-              </SwiperSlide>
-              <SwiperSlide className=" rounded-xl">
-                <Image
-                  alt="img"
-                  className={Ads?.imageUrl}
-                  src={slidesImg}
-                />
-              </SwiperSlide>
-              <SwiperSlide className=" rounded-xl">
-                <Image
-                  alt="img"
-                  className={Ads?.imageUrl}
-                  src={slidesImg}
-                />
-              </SwiperSlide>
+                {Ads.map((Ad)=>{
+                  return     <SwiperSlide className=" rounded-xl">
+                  <Link href={Ad.targetLink?Ad.tatargetLink:"#"}>
+                  <Image
+                  width={1000}
+                  height= {400}
+                    alt="img"
+                    src={ Ads?Ad.imageUrl:slidesImg}
+                    className="rounded-xl cursor-pointer"
+                  />
+                  </Link>
+                </SwiperSlide>
+                })
+
+                }
             </Swiper>
           </div>
 

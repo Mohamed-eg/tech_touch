@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import './index.css'
 import Providers from '../redux/provider'
-import Head from 'next/head'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,11 +18,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Head>
+      <head>
         <title>Touch Tech</title>
         <link rel="icon" href="/favicon.ico" />
-        <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
-      </Head>
+        <link rel="short icon" href="/favicon.ico" />
+      </head>
       <body className={inter.className}>
         <Providers>
           {children}

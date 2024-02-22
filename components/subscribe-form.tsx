@@ -50,7 +50,7 @@ const SubscribeForm: NextPage = () => {
                 <h1 className="m-0 relative text-inherit leading-[140%] max-md:leading-[100%] max-md:text-lg max-sm:text-sm font-bold font-inherit">
                   Subscribe Now To Get Services Best Of Us
                 </h1>
-                <div className="relative text-lg leading-[140%] font-semibold inline-block max-md:leading-[100%] max-md:text-lg max-sm:text-sm max-sm:hidden w-full">{`We recommended you to subscribe to our newspaper, enter your email below to get our daily update about us. `}</div>
+                <div className="relative text-lg leading-[140%] font-semibold inline-block max-md:leading-[100%] max-md:text-md max-sm:text-sm max-sm:hidden w-full">{`Touch Tech is your one-stop shop for the latest and coolest gadgets. Explore our wide range of high-tech products and enjoy the best prices and service. `}</div>
                 <form className="m-0 rounded-xl bg-secondary-colors-white w-[37wv] flex flex-col items-end justify-end py-[5px] box-border">
                   <div className="w-full h-[3vw] flex flex-row items-center justify-start gap-[13vw]">
                     <input
