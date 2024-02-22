@@ -13,7 +13,7 @@ const Hero = () => {
         className="w-full bg-text2 flex flex-col items-center justify-around relative text-center text-[1.11vw] text-text font-title-20px-semibold"
         id="heroSec">
         <div className="w-full my-0 flex flex-row items-center justify-around z-[0]">
-          <div className=" flex flex-col items-start justify-center gap-[80px] w-[40%] ">
+          <div className=" flex flex-col items-start justify-center gap-[80px] max-md:w-full max-md:px-8 w-[40%] ">
             <div className=" flex flex-col items-start justify-start mt-5 w-full gap-[1.3vw]">
               <div className=" flex flex-row items-center justify-start gap-[1.6vw] max-sm:w-full">
                 <Image

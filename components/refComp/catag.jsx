@@ -132,22 +132,6 @@ export default function Categorypage() {
       console.log(data)
       setAds(data) }
     )}, [])
-  // const fetchCat = async () => {
-  //   console.log(selectedCategory)
-  //   try {
-  //     const response = await axios.get(`https://backend.touchtechco.com/fieldGen?coll=products&filedName=categoryId&filedValue=${selectedCategory}`);
-  //     return response.data.data;
-
-  //   } catch (error) {
-  //     console.error('Error fetching data:', error);
-  //     return null;
-  //   }
-  // };
-  // useEffect(()=>{
-  //   fetchCat().then((res)=>{setCatProd(res)
-  //     console.log(catProd)})
-
-  // },[selectedCategory])
   const List = useSelector((state) => state.wishList.List);
   return (
     <div className="bg-white">
