@@ -125,7 +125,7 @@ const Nav = () => {
                 className="relative w-8 h-8 max-md:w-[5vw] overflow-hidden object-cover max-sm:hidden cursor-pointer"
                 src={userImg}
               />
-              {uid ? <span className=" absolute flex w-3 h-3 bg-[#00cc00] rounded-full top-[-8px] right-[-50%]"></span> : <span className=" absolute flex w-3 h-3 bg-[#a7a7a7] rounded-full top-[-8px] right-[60px]"></span>}
+              {uid ? <span className=" absolute flex w-3 h-3 bg-[#00cc00] rounded-full top-[-8px] right-[-50%]"></span> : <span className=" absolute flex w-3 h-3 bg-[#a7a7a7] rounded-full top-[-8px] "></span>}
             </div>
             <div className="relative w-6 h-6 max-sm:hidden">
               <Image alt="img"

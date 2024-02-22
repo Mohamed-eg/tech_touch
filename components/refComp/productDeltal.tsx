@@ -166,13 +166,13 @@ const ProductDeltal = (producDeta: any) => {
         <div className="text-xl font-extrabold text-start px-5 w-full text-primary1"><span>Home</span><span> / {myproduct?.title}</span></div>
         <div className="flex flex-row max-lg:!flex-col p-12 justify-center items-start ">
           <div className="flex w-[50%] max-lg:!w-full flex-row">
-            <div className="flex flex-col w-[25%]">
-              <div className=" rounded-xl flex items-center justify-center mr-5 mb-[20px] bg-slate-100"><Image className="w-full h-[100%] object-cover rounded-lg" alt="product" width={120} height={120} src={myproduct?.colors[0]?.images[1]}></Image></div>
-              <div className=" rounded-xl flex items-center justify-center mr-5 mb-[20px] bg-slate-100"><Image className="w-full h-[100%] object-cover rounded-lg" alt="product" width={120} height={120} src={myproduct?.colors[0]?.images[2]}></Image></div>
-              <div className=" rounded-xl flex items-center justify-center mr-5 mb-[20px] bg-slate-100"><Image className="w-full h-[100%] object-cover rounded-lg" alt="product" width={120} height={120} src={myproduct?.colors[0]?.images[3]}></Image></div>
-              <div className=" rounded-xl flex items-center justify-center mr-5 bg-slate-100"><Image className="w-full h-[100%] object-cover rounded-lg" alt="product" width={120} height={120} src={myproduct?.colors[0]?.images[4]}></Image></div>
+            <div className="flex flex-col mr-5 max-lg:mr-4 max-md:mr-2 max-sm:mr-1 w-[25%]">
+              <div className=" rounded-xl flex items-center justify-center mb-[20px] max-lg:mb-3 max-md:mb-2 max-sm:mb-1 bg-slate-100"><Image className="w-full h-[100%] object-cover rounded-lg" alt="product" width={120} height={120} src={myproduct?.colors[0]?.images[1]}></Image></div>
+              <div className=" rounded-xl flex items-center justify-center mb-[20px] max-lg:mb-3 max-md:mb-2 max-sm:mb-1 bg-slate-100"><Image className="w-full h-[100%] object-cover rounded-lg" alt="product" width={120} height={120} src={myproduct?.colors[0]?.images[2]}></Image></div>
+              <div className=" rounded-xl flex items-center justify-center mb-[20px] max-lg:mb-3 max-md:mb-2 max-sm:mb-1 bg-slate-100"><Image className="w-full h-[100%] object-cover rounded-lg" alt="product" width={120} height={120} src={myproduct?.colors[0]?.images[3]}></Image></div>
+              <div className=" rounded-xl flex items-center justify-center bg-slate-100"><Image className="w-full h-[100%] object-cover rounded-lg" alt="product" width={120} height={120} src={myproduct?.colors[0]?.images[4]}></Image></div>
             </div>
-            <div className="w-[75%] rounded-xl flex justify-center items-center bg-slate-100 m-5">
+            <div className="w-[75%] rounded-xl flex justify-center items-center bg-slate-100 mx-5 max-lg:mx-3 max-md:mx-3 max-sm:mx-2">
               <Image className="w-full h-[100%] object-cover rounded-xl " alt="product" width={446} height={315} src={myproduct?.colors[0]?.images[0]}></Image>
             </div>
           </div>
