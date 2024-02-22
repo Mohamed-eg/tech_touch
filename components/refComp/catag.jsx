@@ -168,7 +168,7 @@ export default function Categorypage() {
               }}
               pagination={{ clickable: true }}>
                 {Ads.map((Ad)=>{
-                  return     <SwiperSlide className=" rounded-xl">
+                  return     <SwiperSlide key={Ad.id} className=" rounded-xl">
                   <Link href={Ad.targetLink?Ad.tatargetLink:"#"}>
                   <Image
                   width={1000}

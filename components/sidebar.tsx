@@ -50,7 +50,7 @@ const Sidebar: React.FC = () => {
           <NavItem text="Home" icon={faHome} href="/" />
           <NavItem text="profile" icon={faPerson} href="/login" />
           <NavItem text="Categories" icon={faStream} href="/categories" />
-          <NavItem text="Card" icon={faShop} href="/card" />
+          <NavItem text="Cart" icon={faShop} href="/card" />
           <NavItem text="wish list" icon={faHeart} href="/wishList" />
           <NavItem text="About" icon={faCog} href="/about" />
           <span className="bg-[#d61414] absolute top-[140px] right-[210px] px-1 text-white rounded-full ">0</span>

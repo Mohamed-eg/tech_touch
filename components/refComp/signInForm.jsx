@@ -114,10 +114,10 @@ export default function SignIn() {
     }
 
   return (
-    <div className=" mt-[150px] bg-white w-full  flex flex-row-reverse items-center justify-between">
-      <div className=" relative w-full">
+    <div className=" mt-[150px] bg-white w-full max-md:flex-col flex flex-row-reverse items-center justify-between">
+      <div className=" relative  w-full">
         <Image
-          className="relative w-full"
+          className="relative max-md:rounded-none w-full"
           src={LogImg}
           alt="shop"
           width={screen.width / 2}
@@ -126,8 +126,8 @@ export default function SignIn() {
         <div className="img-shadow w-full top-0 right-0 min-h-full z-10"></div>
       </div>
 
-      <section className=" w-full m-0 p-0 flex items-center justify-center ">
-      <div className="h-[500px] w-[500px] flex items-center justify-center overflow-hidden  bg-primary1 rounded-full">
+      <section className=" w-full m-0 p-0 max-md:my-12  flex items-center justify-center ">
+      <div className="h-[500px] w-[500px] flex items-center justify-center overflow-hidden  bg-gradient-to-r from-sky-500 to-indigo-500 rounded-full">
         <Toaster toastOptions={{ duration: 4000 }} />
         <div id="recaptcha-container"></div>
         {user ? (

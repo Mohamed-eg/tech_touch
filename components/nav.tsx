@@ -75,9 +75,11 @@ const Nav = () => {
         className="m-0 w-full flex flex-row items-center  "
         id="mainNav">
         <nav className="m-auto p-2 flex flex-row items-center justify-center w-full max-lg:w-[75%] max-sm:m-0 max-sm:p-0 max-md:w-[25%]">
-          <div className="relative w-[4.9vw] max-md:w-[20vw] max-w-[71px] object-cover"> <Image width={71} height={49} alt="img"
-            src="/touch tech logo.png"
-          /></div>
+          <Link href={"/"}>
+            <div className="relative w-[4.9vw] max-md:w-[20vw] cursor-pointer max-w-[71px] object-cover"> <Image width={71} height={49} alt="img"
+              src="/touch tech logo.png"
+            /></div>
+          </Link>
           <ul
             className="m-0  flex flex-row items-start justify-start gap-[48px] max-md:hidden text-center text-base max-lg:text-sm text-darkslategray font-title-20px-semibold"
             id="topNav">
@@ -133,7 +135,7 @@ const Nav = () => {
                 src={buyImg}
                 onClick={onIconsCurvedBuyClick}
               />
-              {cart?.length === 0 ? null : <span className="bg-[#d61414] absolute top-[-8px] right-[-5px] px-1 text-white rounded-full ">{cart.length || 0}</span>}
+              {cart?.length === 0 ? null : <span className="bg-[#d61414] absolute top-[-8px] right-[-70%] px-1 text-white rounded-full ">{cart.length || 0}</span>}
             </div>
             <div className="hidden max-sm:block"><Sidebar /></div>
 

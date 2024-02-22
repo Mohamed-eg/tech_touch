@@ -238,7 +238,7 @@ const ProductDeltal = (producDeta: any) => {
         </div>
       </section>
       <section className="relative w-full overflow-hidden flex flex-col items-center justify-center px-24">
-        <div><span></span><h2 className="text-blue">Related item</h2></div>
+        <div><span></span><h2 className="text-primary1 w-full text-left mx-2 ">Related item</h2></div>
 
         <Swiper
           className="!flex justify-center items-center"
