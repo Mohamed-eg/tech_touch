@@ -163,9 +163,9 @@ const ProductDeltal = (producDeta: any) => {
   return (
     <>
       <section className="relative w-full mt-[200px] mb-[50px] overflow-hidden flex flex-col items-center justify-center">
-        <div className="text-xl font-extrabold text-primary1"><span>Home</span><span> / {myproduct?.title}</span></div>
-        <div className="flex flex-row p-12 justify-center items-start ">
-          <div className="flex w-[50%] flex-row">
+        <div className="text-xl font-extrabold text-start px-5 w-full text-primary1"><span>Home</span><span> / {myproduct?.title}</span></div>
+        <div className="flex flex-row max-lg:!flex-col p-12 justify-center items-start ">
+          <div className="flex w-[50%] max-lg:!w-full flex-row">
             <div className="flex flex-col w-[25%]">
               <div className=" rounded-xl flex items-center justify-center mr-5 mb-[20px] bg-slate-100"><Image className="w-full h-[100%] object-cover rounded-lg" alt="product" width={120} height={120} src={myproduct?.colors[0]?.images[1]}></Image></div>
               <div className=" rounded-xl flex items-center justify-center mr-5 mb-[20px] bg-slate-100"><Image className="w-full h-[100%] object-cover rounded-lg" alt="product" width={120} height={120} src={myproduct?.colors[0]?.images[2]}></Image></div>
@@ -176,7 +176,7 @@ const ProductDeltal = (producDeta: any) => {
               <Image className="w-full h-[100%] object-cover rounded-xl " alt="product" width={446} height={315} src={myproduct?.colors[0]?.images[0]}></Image>
             </div>
           </div>
-          <div className="flex flex-col items-start justify-start ml-16 w-[30%] text-black">
+          <div className="flex flex-col items-start justify-start ml-16 max-lg:ml-0 w-[30%] max-lg:!w-full text-black">
             <div className="">
               <h1>{myproduct?.title}</h1>
               <h2 className="text-blue text-xl">{`${parseFloat(showedPrice(myproduct).toFixed(2))} EGP`}</h2>
