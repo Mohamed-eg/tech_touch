@@ -54,7 +54,7 @@ const Sidebar: React.FC = () => {
 
           {List?.length ? <span className="bg-[#d61414] absolute top-[180px] right-[210px] px-1 text-sm text-white rounded-full ">{List.length || 0}</span> : null}
           <NavItem text="Home" icon={faHome} href="/" />
-          <NavItem text="profile" icon={faUser} href="/login" />
+          <NavItem text="profile" icon={faUser} href={`/${uid ? "EditProfile/uid?uid=" + uid : "login"}`} />
           <NavItem text="Categories" icon={faStream} href="/categories" />
           <NavItem text="Cart" icon={faShop} href="/card" />
           <NavItem text="wish list" icon={faHeart} href="/wishList" />
