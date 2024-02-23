@@ -7,8 +7,8 @@ import Image from 'next/image'
 import leftArrow from "../public/fill-with-left-arrow@2x.png"
 import rightArrow from "../public/fill-with-right-arrow.svg"
 import 'swiper/css';
-import 'swiper/css/navigation'; // Navigation module
-import 'swiper/css/pagination'; // Pagination module
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import OnePageProdac from "./refComp/onePageProdac";
 
 const AllProducts: NextPage = (props: any) => {

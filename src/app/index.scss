@@ -33,9 +33,11 @@
     }
   }
 }
-.blackBorder{
+
+.blackBorder {
   border: 1px solid #ccc
 }
+
 .icon-box,
 .icon-box-selected {
   padding-top: 80px;
@@ -46,6 +48,10 @@
     position: absolute;
     top: 20px;
   }
+}
+
+.bg-cyan-700 {
+  background: #0a5c99;
 }
 
 .icon-box-selected:hover {

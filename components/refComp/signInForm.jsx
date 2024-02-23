@@ -92,7 +92,7 @@ export default function SignIn() {
           console.log(reduxID)
           getmydata(uid).then((res)=>{
             console.log(res)
-            if(res.code===200){
+            if(res?.code===200){
               console.log(res.data)
               if(res.data.length !=0 ){
                 toast.success(`Welcome ${res.data.name}`);

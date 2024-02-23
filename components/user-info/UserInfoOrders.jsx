@@ -43,7 +43,7 @@ const UserInfoOrders = () => {
   return (
     <div className='w-full bg-slate-50 h-[80vh] overflow-scroll p-6 rounded-xl '>
     {
-        Data.map(
+        Data?.map(
             (cart,index)=>{
                return(
                 <div key={cart.id}>

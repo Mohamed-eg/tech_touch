@@ -316,7 +316,7 @@ const myprameFu= (pram,opt)=>{
                 </div>
               </div>
               {/* Filters */}
-               <form className="hidden lg:block">
+               <form className={`${mobileFiltersOpen?"block":"hidden"}`}>
                 <h3 className="">Price 💲</h3>
 
                 {/* <RangeSlider defaultValue={[1000,5000]} value={Rang} min={100} max={25000} step={100}

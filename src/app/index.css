@@ -28,19 +28,25 @@
           filter: invert(100%);
 }
 
+.blackBorder {
+  border: 1px solid #ccc;
+}
+
 .icon-box,
 .icon-box-selected {
   padding-top: 80px;
   position: relative;
   border: 1px solid #eeeeee;
 }
-.blackBorder{
-  border: 1px solid #ccc
-}
+
 .icon-box div,
 .icon-box-selected div {
   position: absolute;
   top: 20px;
+}
+
+.bg-cyan-700 {
+  background: #0a5c99;
 }
 
 .icon-box-selected:hover {
