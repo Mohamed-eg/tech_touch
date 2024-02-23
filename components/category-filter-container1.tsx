@@ -39,17 +39,17 @@ const CategoryFilterContainer1: NextPage = () => {
           />
         </div>
       </div>
-      <div className=" flex flex-row items-start overflow-hidden justify-start gap-[30px]">
+      <div className=" flex flex-row items-start justify-start gap-[30px]">
         <Swiper
-          className="!flex justify-center items-center"
+          className="!flex justify-center !w-[170px] items-center"
           spaceBetween={50}
           slidesPerView={1}
-          // breakpoints={{
-          //   480: { slidesPerView: 2 },
-          //   740: { slidesPerView: 3 },
-          //   1020: { slidesPerView: 4 },
-          //   1440: { slidesPerView: 5 },
-          // }}
+          breakpoints={{
+            480: { slidesPerView: 2 },
+            740: { slidesPerView: 3 },
+            1020: { slidesPerView: 4 },
+            1440: { slidesPerView: 5 },
+          }}
         >
           {categories.map((category: any) => {
             return (

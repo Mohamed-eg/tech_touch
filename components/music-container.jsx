@@ -26,13 +26,13 @@ const MusicContainer = () => {
   return (
     <section className="relative w-full overflow-hidden flex flex-col items-center m-auto justify-center text-left text-base text-scondry font-title-20px-semibold">
       <div className="w-[82vw] flex flex-col items-center justify-center">
-        <div className="rounded-sm bg-primary1 w-full h-auto overflow-hidden flex flex-row items-center justify-center py-0 px-11 box-border gap-[27px]">
-          <div className=" h-[362px]   flex flex-col items-start justify-start gap-[32px]">
-            <div className=" h-[172px]  flex flex-col items-start justify-start gap-[32px]">
+        <div className="rounded-sm bg-primary1 w-full h-auto overflow-hidden flex flex-row max-md:flex-col items-center justify-center py-0 px-11 box-border max-md:gap-0 gap-[27px]">
+          <div className=" h-[60%]   flex flex-col items-start justify-start gap-[32px]">
+            <div className="  flex flex-col items-start justify-start gap-[32px]">
               <span className="absolute leading-[20px] pt-9 font-semibold">
                 Categories
               </span>
-              <h1 className="m-0 relative text-[3.3vw] tracking-[0.04em] leading-[60px] mt-16 font-semibold font-heading-24px-semibold text-wrap text-text  max-sm:hidden inline-block">
+              <h1 className="m-0 relative text-xl tracking-[0.04em] leading-[60px] mt-16 font-semibold font-heading-24px-semibold text-wrap text-text inline-block">
                 {data?data.title:"Enhance Your Music Experience"}
               </h1>
             </div>
@@ -43,7 +43,7 @@ const MusicContainer = () => {
             <Link href={userId ? `/productDeta/id?id=${data?.id}` : `./login`}>
             <div className="w-full rounded-lg  flex flex-col items-center justify-center py-0 pr-0 box-border">
               <Image alt="img"
-                className="relative !rounded-lg w-[32vw] max-sm:w-full h-[22.7vw] z-30 mr-11 object-contain"
+                className="relative !rounded-lg w-[32vw] min-h-[250px] min-w-[250px] max-sm:w-full h-[22.7vw] z-30 mr-11 max-md:m-0 object-contain"
                  width={500}
                  height={250}
                 src={data?data.imageLink:speakerImg}
