@@ -73,7 +73,7 @@ const [Rang,SetRang]=useState([0,25000]);
   const [selectedOption,setSelectedOption] = useState('');
   const [sortOption,setSortOption] = useState(null);
   const [catProd,setCatProd] = useState([]);
-  const [noColor,setNoColor] = useState(false)
+  const [noColor,setNoColor] = useState(true)
   const [checked,setChecked] = useState(false)
   const [Desc,setDesc] = useState(false)
   const [Disc,setDisc] = useState(false)
@@ -81,7 +81,7 @@ const [Rang,SetRang]=useState([0,25000]);
   const AllProducts = useSelector((state) => state.categories.allproducts);
   const categories = useSelector((state) => state.categories.allCategories)
   const [color, setColor] = useColor("#123123");
-  const [myColor, setMyColor] = useState(null);
+  // const [myColor, setMyColor] = useState(color);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(true);
   const selectedCategory = useSelector(
     (state) => state.categories.selectedCategory
@@ -123,13 +123,13 @@ const myprameFu= (pram,opt)=>{
     }
   };
   const postSelectedFilter = async () => {
-    console.log( Rang[0], Rang[1],noColor?`${parseInt(myColor?.hex.substring(1), 16)}`:null,selectedPram,user?.userType,sortOption,Desc,Disc)
+    console.log( Rang[0], Rang[1],noColor?null:`${parseInt(color?.hex.substring(1), 16)}`,selectedPram,user?.userType,sortOption,Desc,Disc)
     try {
       const response = await axios.post(`https://backend.touchtechco.com/filter?catId=${query}`,{
         "minPrice": Rang[0],
          "maxPrice": Rang[1],
          // can be null
-          "color": noColor?`${parseInt(myColor?.hex.substring(1), 16)}`:null, 
+          "color": noColor?null:`${parseInt(color?.hex.substring(1), 16)}`, 
           // can be empty {}
           "parameters": selectedPram,
            "userType": "user", //user?.userType,
@@ -333,10 +333,10 @@ const myprameFu= (pram,opt)=>{
                       <>
                         <div className="flex text-lg justify-between m-2">
                         <label htmlFor='Desc'>any Color</label>
-                          <input className="h-4 w-4 rounded border-slate-400 blackBorder text-indigo-600 focus:ring-indigo-500 !border" type="checkbox"  id="Desc" onClick={()=>{setNoColor(!noColor)}} />
+                          <input checked={noColor} className="h-4 w-4 rounded border-slate-400 blackBorder text-indigo-600 focus:ring-indigo-500 !border" type="checkbox"  id="Desc" onClick={()=>{setNoColor(!noColor)}} />
                         </div>
                         <h3 className="my-3 flow-root">
-                          <Disclosure.Button onClick={()=>{setMyColor(color)}} className="flex w-full items-center justify-between rounded-lg bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
+                          <Disclosure.Button /*onClick={()=>{setMyColor(color)}}*/ className="flex w-full items-center justify-between rounded-lg bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
                             <span className="font-medium text-gray-900">
                               color
                             </span>
