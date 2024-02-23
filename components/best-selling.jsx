@@ -41,7 +41,7 @@ const BestSelling = () => {
         <Swiper
           className="!flex justify-center items-center w-[90vw]"
           spaceBetween={50}
-          slidesPerView={4}
+          slidesPerView={1}
           breakpoints={{
             480: { slidesPerView: 2 },
             740: { slidesPerView: 3 },

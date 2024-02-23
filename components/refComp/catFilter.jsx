@@ -73,6 +73,7 @@ const [Rang,SetRang]=useState([0,25000]);
   const [selectedOption,setSelectedOption] = useState('');
   const [sortOption,setSortOption] = useState(null);
   const [catProd,setCatProd] = useState([]);
+  const [noColor,setNoColor] = useState(false)
   const [checked,setChecked] = useState(false)
   const [Desc,setDesc] = useState(false)
   const [Disc,setDisc] = useState(false)
@@ -92,6 +93,9 @@ const [Rang,SetRang]=useState([0,25000]);
 const myprameFu= (pram,opt)=>{
   const updatedPram ={...selectedPram}
   updatedPram[pram] = opt
+  if(opt===null){
+    delete updatedPram[pram]
+  }
   // const mypram =pram
   setParameter(updatedPram)
 }
@@ -119,16 +123,16 @@ const myprameFu= (pram,opt)=>{
     }
   };
   const postSelectedFilter = async () => {
-    console.log( Rang[0], Rang[1],parseInt(myColor.hex?.substring(1), 16),selectedPram,user,sortOption,Desc,Disc)
+    console.log( Rang[0], Rang[1],noColor?`${parseInt(myColor?.hex.substring(1), 16)}`:null,selectedPram,user?.userType,sortOption,Desc,Disc)
     try {
       const response = await axios.post(`https://backend.touchtechco.com/filter?catId=${query}`,{
         "minPrice": Rang[0],
          "maxPrice": Rang[1],
          // can be null
-          "color":  `${parseInt(myColor.hex.substring(1), 16)}`, 
+          "color": noColor?`${parseInt(myColor?.hex.substring(1), 16)}`:null, 
           // can be empty {}
           "parameters": selectedPram,
-           "userType": user?.userType,
+           "userType": "user", //user?.userType,
             //title, price, discount ?catId=Ys5xqul03ShxJcUNx4Ij-1707937854885141
            // can be null
             "sortParam": sortOption, 
@@ -141,6 +145,15 @@ const myprameFu= (pram,opt)=>{
       return null;
     }
   };
+  const checkIt =(pramID)=>{
+    const PramValuo=searchParams.pramID
+   if (PramValuo===null){
+    return true
+   }
+   else{
+    return false
+   }
+  }
   const activeFilter = ()=>{
     postSelectedFilter().then((data)=>{
       console.log(data)
@@ -309,7 +322,7 @@ const myprameFu= (pram,opt)=>{
                 {/* <RangeSlider defaultValue={[1000,5000]} value={Rang} min={100} max={25000} step={100}
                 onInput={()=>{RangeSliderChange}} /> */}
                 {`${Rang[0]} - ${Rang[1]}`}
-                <Slider range defaultValue={Rang}  min={100} max={25000} onChange={RangeSliderChange}  allowCross={false}/>
+                <Slider range defaultValue={Rang}  min={0} max={25000} onChange={RangeSliderChange}  allowCross={false}/>
                  
                  
                   <Disclosure
@@ -318,7 +331,11 @@ const myprameFu= (pram,opt)=>{
                     className="border-b border-gray-200 py-6">
                     {({ open }) => (
                       <>
-                        <h3 className="-my-3 flow-root">
+                        <div className="flex text-lg justify-between m-2">
+                        <label htmlFor='Desc'>any Color</label>
+                          <input className="h-4 w-4 rounded border-slate-400 blackBorder text-indigo-600 focus:ring-indigo-500 !border" type="checkbox"  id="Desc" onClick={()=>{setNoColor(!noColor)}} />
+                        </div>
+                        <h3 className="my-3 flow-root">
                           <Disclosure.Button onClick={()=>{setMyColor(color)}} className="flex w-full items-center justify-between rounded-lg bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
                             <span className="font-medium text-gray-900">
                               color
@@ -385,15 +402,14 @@ const myprameFu= (pram,opt)=>{
                                   <input
                                     id={`${option.id}`}
                                     onClick={() => {
-                                      // setChecked(!checked);
                                       myprameFu(parameter.id ,option.id)
                                       // setSelectedOption(option.id);
                                     }}
                                     name={`${option.id}[]`}
                                     value={option.id} 
-                                    type="checkbox"
+                                     type="checkbox" 
                                     checked={Object.values(selectedPram).includes(option.id)}
-                                    className="h-4 w-4 rounded border-gray-900 text-indigo-600 focus:ring-indigo-500"
+                                    className="h-4 w-4 rounded !border border-slate-400 blackBorder text-indigo-600 focus:ring-indigo-500"
                                   />
                                   <label
                                     htmlFor={`${option.id}`}
@@ -402,6 +418,29 @@ const myprameFu= (pram,opt)=>{
                                   </label>
                                 </div>
                               ))}
+                              <div
+                                  className="flex items-center">
+                                  <input
+                                    id={`nullOption`}
+                                    onClick={() => {
+                                      myprameFu(parameter.id ,null)
+                                      checkIt()
+                                      // setSelectedOption(option.id);
+                                    }}
+                                    name={`null[]`}
+                                    value={null} 
+                                     type="checkbox" 
+                                     checked={!(Object.keys(selectedPram).includes(parameter.id))}
+                                    // checked={()=>checkIt(parameter.id)}
+                                    className="h-4 w-4 rounded !border border-slate-400 blackBorder text-indigo-600 focus:ring-indigo-500"
+                                  />
+                                  <label
+                                    htmlFor={`null`}
+                                    className="ml-3 text-sm text-gray-900">
+                                    All
+                                  </label>
+                                </div>
+                              
                             </div>
                           </Disclosure.Panel>
                         </>
@@ -413,11 +452,11 @@ const myprameFu= (pram,opt)=>{
                <div className="flex flex-col">
                <div className="flex justify-between m-2">
                <label htmlFor='Desc'>Descending</label>
-                <input className="h-4 w-4 rounded border-gray-900 text-indigo-600 focus:ring-indigo-500" type="checkbox" id="Desc" onClick={()=>{setDesc(!Desc)}} />
+                <input className="h-4 w-4 rounded border-slate-400 blackBorder text-indigo-600 focus:ring-indigo-500 !border" type="checkbox"  id="Desc" onClick={()=>{setDesc(!Desc)}} />
                </div>
                 <div className="flex justify-between m-2">
                 <label htmlFor='Disc'>Discount</label>
-                <input className="h-4 w-4 rounded border-gray-900 text-indigo-600 focus:ring-indigo-500" type="checkbox" id="Disc" onClick={()=>{setDisc(!Disc)}} />
+                <input className="h-4 w-4 rounded border-slate-400 blackBorder text-indigo-600 focus:ring-indigo-500 !border" type="checkbox"  id="Disc" onClick={()=>{setDisc(!Disc)}} />
                 </div>
                 <button className="p-3 rounded-xl bg-primary1 border-none cursor-pointer text-white text-lg" type="button" onClick={activeFilter}>apply filter</button>
                </div>

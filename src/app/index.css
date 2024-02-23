@@ -34,7 +34,9 @@
   position: relative;
   border: 1px solid #eeeeee;
 }
-
+.blackBorder{
+  border: 1px solid #ccc
+}
 .icon-box div,
 .icon-box-selected div {
   position: absolute;

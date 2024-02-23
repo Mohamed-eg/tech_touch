@@ -95,6 +95,7 @@ const isitcheaked = () => {
 
 export default function Categorypage() {
   const [Ads,setAds]=useState([])
+  const [firstAd,setFirstAd]=useState([])
   const [catProd,setCatProd] = useState([]);
   const [checked,setChecked] = useState(false)
   const AllProducts = useSelector((state) => state.categories.allproducts);
@@ -130,7 +131,8 @@ export default function Categorypage() {
     });
     fetchAds().then((data) => {
       console.log(data)
-      setAds(data) }
+      setAds(data)
+    setFirstAd(data[0]) }
     )}, [])
   const List = useSelector((state) => state.wishList.List);
   return (
@@ -147,7 +149,8 @@ export default function Categorypage() {
               spaceBetween={30}
               loop={true}
               autoplay={{
-                delay: Ads?Ads[0].activeSeconds*1000:3000,
+                delay: Ads?firstAd.activeSeconds*1000:3000,
+                // delay:3000,
                 disableOnInteraction: false,
               }}
               pagination={{ clickable: true }}>
