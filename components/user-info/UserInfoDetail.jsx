@@ -2,9 +2,11 @@
 import axios from "axios";
 import { useState,useEffect } from "react";
 import classes from "./UserInfoDetail.module.css";
+import { useRouter } from "next/navigation";
 import { useSearchParams } from 'next/navigation';
 
 function UserInfoDetail() {
+  const router =useRouter()
   const searchParams = useSearchParams();
   const userID = searchParams.get('uid');
   const [mydate,setData]=useState([])

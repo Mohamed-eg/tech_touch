@@ -68,7 +68,7 @@ const FooterComp: NextPage<FrameComponentType> = ({
 
   return (
     <div
-      className="bg-foundation-blue-darker w-full h-[374px] flex flex-col items-center justify-center p-2.5 box-border text-left text-lg text-secondary-colors-white font-nunito-sans"
+      className="bg-foundation-blue-darker w-full z-0 h-[374px] flex flex-col items-center justify-center p-2.5 box-border text-left text-lg text-secondary-colors-white font-nunito-sans"
       style={frameDivStyle}
     >
       <div className="flex flex-col items-start justify-start gap-[42px]">
@@ -157,22 +157,22 @@ const FooterComp: NextPage<FrameComponentType> = ({
                       src={pngTransparentGooglePlayS}
                     /> */}
                     <Image alt="img"
-                      className="absolute my-0 mx-[!important] top-[22.2px] left-[99.4px] w-[0.6px] h-px object-cover z-[1]"
+                      className="absolute z-0 my-0 mx-[!important] top-[22.2px] left-[99.4px] w-[0.6px] h-px object-cover "
 
                       src={vector1}
                     />
                     <Image alt="img"
-                      className="absolute my-0 mx-[!important] top-[22px] left-[98.2px] w-[1.3px] h-[3.9px] object-cover z-[2]"
+                      className="absolute z-0 my-0 mx-[!important] top-[22px] left-[98.2px] w-[1.3px] h-[3.9px] object-cover"
 
                       src={vector2}
                     />
                     <Image alt="img"
-                      className="absolute my-0 mx-[!important] top-[22.2px] left-[94.9px] w-[0.3px] h-[0.1px] object-cover z-[3]"
+                      className="absolute z-0 my-0 mx-[!important] top-[22.2px] left-[94.9px] w-[0.3px] h-[0.1px] object-cover "
 
                       src={vector3}
                     />
                     <Image alt="img"
-                      className="absolute my-0 mx-[!important] top-[22.7px] left-[98.4px] w-[1.2px] h-[2.2px] object-cover z-[4]"
+                      className="absolute z-0 my-0 mx-[!important] top-[22.7px] left-[98.4px] w-[1.2px] h-[2.2px] object-cover "
 
                       src={vector4}
                     />

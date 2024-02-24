@@ -4,9 +4,11 @@ import Image from 'next/image'
 import axios from 'axios'
 import { CiLocationOn } from "react-icons/ci";
 import { useSearchParams } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { calc } from '@chakra-ui/react';
 
 const UserInfoOrders = () => {
+    const router =useRouter()
     let price =0
     const [Data,setData]=useState([])
     let [Tprice,setTprice]= useState(0)
@@ -30,6 +32,25 @@ const UserInfoOrders = () => {
             return null;
           }
     }
+    const formatTime=(timeString)=> {
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    
+        const dateTime = new Date(timeString);
+        console.log("from function")
+        const year = dateTime.getFullYear();
+        const month = months[dateTime.getMonth()];
+        const date = dateTime.getDate();
+        const day = days[dateTime.getDay()];
+        const hours = dateTime.getHours();
+        const minutes = dateTime.getMinutes().toString().padStart(2, '0');
+        const seconds = dateTime.getSeconds().toString().padStart(2, '0');
+    
+        // Example format: "Friday, February 15, 2024, 23:24:44"
+        const formattedTime = `${day}, ${date} ${month}, ${year}, ${hours}:${minutes}`;
+        return formattedTime;
+    }
+
     useEffect(()=>{
         getOrders().then((res)=>{console.log(res)
             setData(res)})
@@ -41,7 +62,7 @@ const UserInfoOrders = () => {
         return price=+ (parseInt( p.currentPrice)*parseInt(p.quantity)) +0
        })}
   return (
-    <div className='w-full bg-slate-50 h-[80vh] mx-2 overflow-scroll p-6 rounded-xl '>
+    <div className='w-full bg-slate-50  min-h-[80vh] mx-2 p-6 rounded-xl '>
     {
         Data?.map(
             (cart,index)=>{
@@ -70,14 +91,14 @@ const UserInfoOrders = () => {
                   {cart.cartItems.map(
                    (p,index)=>{
                        return(
-                           <div key={p.id} className='bg-white flex flex-row justify-between p-5 rounded-xl m-5'>
-                           <Image alt='product' className='rounded-xl' width={150} height={150} src={p.imageLink} />
-                           <div className='flex flex-col'>
+                           <div key={p.id} className='bg-white flex flex-row max-md:flex-col max-md:items-center justify-between p-5 rounded-xl m-5'>
+                           <Image alt='product' className='rounded-xl max-md:w-full max-md:h-auto' width={150} height={150} src={p.imageLink} />
+                           <div className='flex flex-col text-center'>
                                <h2>
                                    {p.productName}
                                </h2>
                                <h3>
-                                   {p.currentPrice}
+                                  Price {p.currentPrice}
                                </h3>
                            </div>
                            <div className='rounded-full flex justify-center items-center w-9 h-9 bg-primary1'>
@@ -89,11 +110,11 @@ const UserInfoOrders = () => {
                    }
                   )}
            
-                   <div className='flex flex-col p-5 rounded-xl'>
+                   <div className='flex flex-col rounded-xl'>
                        <h1>Payment Info</h1>
                        <div className='flex items-center justify-between flex-row m-2 p-3 bg-white rounded-xl '>
                            <span className='text-[#242424]'>Orderd At</span>
-                           <span className='text-[#009099]'>{cart.createdAt}</span>
+                           <span className='text-[#009099] max-sm:text-sm'>{formatTime(cart.createdAt)}</span>
                        </div>
                        <div className='flex items-center justify-between flex-row m-2 p-3 bg-white rounded-xl '>
                            <span className='text-[#242424]'>Payment Method</span>
