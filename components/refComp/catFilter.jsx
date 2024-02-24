@@ -199,18 +199,19 @@ const myprameFu= (pram,opt)=>{
 
         <main className="mx-auto mt-[200px] max-w-7xl h-screen overflow-y-scroll px-4 sm:px-6 lg:px-8">
 
-          <div className="flex items-baseline justify-between border-b border-gray-200 pb-6">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900">
+          <div className="flex items-baseline justify-between max-md:justify-end border-b border-gray-200 pb-6">
+            <h1 className="text-4xl max-md:hidden font-bold tracking-tight text-gray-900">
               explore our products
             </h1>
 
-            <div className="flex items-center">
+            <div className="flex items-center rounded-lg p-2 border border-gray-600 border-solid">
+                    <h4 className="m-3">Sort</h4>
               <Menu as="div" className="relative inline-block text-left">
                 <div>
-                  <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-900 hover:text-black">
+                  <Menu.Button className="group inline-flex w-24 bg-transparent mr-2 rounded-md p-1 border  border-gray-600 border-solid justify-end text-sm font-medium text-gray-900 hover:text-black">
                     {sortOption}
                     <ChevronDownIcon
-                      className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                      className="h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
                     />
                   </Menu.Button>
@@ -226,7 +227,6 @@ const myprameFu= (pram,opt)=>{
                   leaveTo="transform opacity-0 scale-95">
                   <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
-                      Sort
                       {sortOptions.map((option) => (
                         <Menu.Item 
                         onClick={()=>{setSortOption(option.value)}}
@@ -250,17 +250,10 @@ const myprameFu= (pram,opt)=>{
                   </Menu.Items>
                 </Transition>
               </Menu>
-
               <button
                 type="button"
-                className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
-                <span className="sr-only">View grid</span>
-                <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
-                onClick={() => setMobileFiltersOpen(true)}>
+                className="p-2 bg-transparent mr-2 rounded-md border  border-gray-600 border-solid text-gray-400  hover:text-gray-500 sm:ml-6 lg:hidden"
+                onClick={() => setMobileFiltersOpen(!mobileFiltersOpen)}>
                 <span className="sr-only">Filters</span>
                 <FunnelIcon className="h-5 w-5" aria-hidden="true" />
               </button>
@@ -272,8 +265,8 @@ const myprameFu= (pram,opt)=>{
               Products
             </h2>
 
-            <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-              <div className="lg:col-span-3 ">
+            <div className="flex flex-row w-full justify-between items-start">
+              <div className="w-full">
                 <div className="w-full flex flex-row items-center justify-center flex-wrap">
                   {catProd?null:<h1>there is no product matcheing</h1>}
                   {catProd
@@ -316,7 +309,7 @@ const myprameFu= (pram,opt)=>{
                 </div>
               </div>
               {/* Filters */}
-               <form className={`${mobileFiltersOpen?"block":"hidden"}`}>
+               <form className={`w-[300px] shadow-lg rounded-lg p-3  ${mobileFiltersOpen?"block":"hidden"}`}>
                 <h3 className="">Price 💲</h3>
 
                 {/* <RangeSlider defaultValue={[1000,5000]} value={Rang} min={100} max={25000} step={100}

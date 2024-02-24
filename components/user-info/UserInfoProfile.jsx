@@ -68,7 +68,7 @@ const UserInfoProfile = ()=> {
 
   return (
     <section className="w-full">
-      <div className="flex w-full bg-[#f4f4f4] flex-col items-center rounded-xl justify-center text-black">
+      <div className="flex w-full bg-slate-50 py-3 mx-2 flex-col items-center rounded-xl justify-center text-black">
         <div className="flex flex-col items-center justify-center">
             <div className="rounded-full flex items-center justify-center scondry_border overflow-hidden w-[100px] h-[100px] mt-5 pt-5">
                 <Image alt={mydate?.name} src={/*mydate?.imageLink?mydate.imageLink:*/logoImg} width={100} height={100} className=" object-cover"/>
@@ -78,25 +78,24 @@ const UserInfoProfile = ()=> {
         </div>
         <div className="flex flex-col justify-center items-center gap-5">
             <div className="flex flex-col ">
-                <label htmlFor="FullName">Full Name</label>
+                <label className={'p-1'} htmlFor="FullName">Full Name</label>
                 <div className="flex flex-row jus relative h-[40px] justify-center items-center p-4 bg-white rounded-lg w-[250px]"><input value={name} onChange={handleName} className=" absolute w-full h-full rounded-lg border-none !focus:outline-none !outline-none bg-transparent p-1" id="FullName" type="text" placeholder={mydate?.name}/><Image className="absolute right-2" idth={25} height={25} alt="icon" src={logoImg}/></div>
             </div>
             <div className="flex flex-col ">
-                <label htmlFor="Email">Email</label>
+                <label className={'p-1'} htmlFor="Email">Email</label>
                 <div className="flex flex-row jus relative h-[40px] justify-center items-center p-4 bg-white rounded-lg w-[250px]"><input value={email} onChange={handleEmail} className=" absolute w-full h-full rounded-lg border-none !focus:outline-none !outline-none bg-transparent p-1" id="Email" type="text" placeholder={mydate?.email}/><Image className="absolute right-2"width={20} height={20} alt="icon" src={Message}/></div>
             </div>
             <div className="flex flex-col ">
-                <label htmlFor="SecondaryPhone">Secondary Phone</label>
+                <label className={'p-1'} htmlFor="SecondaryPhone">Secondary Phone</label>
                 <div className="flex flex-row jus relative h-[40px] justify-center items-center p-4 bg-white rounded-lg w-[250px]"><input value={phoneTwo} onChange={handlePhoneTwo} className=" absolute w-full h-full rounded-lg border-none !focus:outline-none !outline-none bg-transparent p-1" id="SecondaryPhone" type="text" placeholder={mydate?.secondaryPhone}/></div>
             </div>
             <div className="flex flex-col ">
-                <label htmlFor="PrimaryPhone">Primary Phone</label>
+                <label className={'p-1'} htmlFor="PrimaryPhone">Primary Phone</label>
                 <div className="flex flex-row jus relative h-[40px] justify-center items-center p-4 bg-white rounded-lg w-[250px]"><input value={phoneOne} onChange={handlePhoneOne} className=" absolute w-full h-full rounded-lg border-none !focus:outline-none !outline-none bg-transparent p-1" id="PrimaryPhone" type="text" placeholder={mydate?.primaryPhone}/></div>
             </div>
         </div>
         <div className="flex flex-col">
             <button className="p-4 mt-3 w-[250px] rounded-xl border-none  text-white bg-primary1" type="button" onClick={sendData}>Save</button>
-            <button className="p-4 my-3 w-[250px] rounded-xl border-red !border-[1px] text-red bg-white" type="button">Delete Account</button>
         </div>
 
       </div>

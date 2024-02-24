@@ -83,7 +83,7 @@ const getmycart = async () => {
 
   return (
     <section className={classes.Main}>
-     <div className="w-full h-[80vh] rounded-xl bg-slate-50">
+     <div className="w-full mx-2 h-[80vh] rounded-xl bg-slate-50">
      <div className="w-full h-[30vh] rounded-xl bg-slate-50 overflow-scroll">
         <button className="rounded-full w-[40px] h-[40px] m-6 bg-scondry border-none" onClick={handleAdd}>➕</button><spa>Add address</spa>
       <table class="table w-full">

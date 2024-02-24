@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 import { useSelector } from "react-redux";
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
+import { FreeMode, Navigation } from 'swiper/modules';
 import { useEffect } from "react"
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -30,12 +30,12 @@ const CategoryFilterContainer1: NextPage = () => {
         </div>
         <div className=" flex flex-row items-start justify-start max-sm:w-[50%] max-sm:m-auto gap-[8px]">
           <Image width={40} height={40} alt="img"
-            className="relative w-[46px] h-[46px] cursor-poniter max-sm:w-8 max-sm:h-8 swiper-button-prev"
+            className="relative w-[46px] h-[46px] !cursor-poniter max-sm:w-8 max-sm:h-8 swiper-button-prev-cat"
 
             src="/fill-with-left-arrow.svg"
           />
           <Image width={40} height={40} alt="img"
-            className="relative w-[46px] h-[46px] cursor-poniter max-sm:w-8 max-sm:h-8 swiper-button-next"
+            className="relative w-[46px] h-[46px] !cursor-poniter max-sm:w-8 max-sm:h-8 swiper-button-next-cat"
 
             src="/fill-with-right-arrow.svg"
           />
@@ -45,18 +45,21 @@ const CategoryFilterContainer1: NextPage = () => {
         <Swiper
           className="!flex justify-center !w-[170px] items-center"
           spaceBetween={50}
-          slidesPerView={1}
-          modules={[Navigation]}
+          freeMode={true}
+          loop={true}
+          // slidesPerView={4}
+          // slidesPerGroup={1}
+          modules={[FreeMode, Navigation]}
           navigation={{
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
+            nextEl: '.swiper-button-next-cat',
+            prevEl: '.swiper-button-prev-cat',
           }}
-          breakpoints={{
-            480: { slidesPerView: 2 },
-            740: { slidesPerView: 3 },
-            1020: { slidesPerView: 4 },
-            1440: { slidesPerView: 5 },
-          }}
+        // breakpoints={{
+        //   400: { slidesPerView: 1 },
+        //   480: { slidesPerView: 2 },
+        //   740: { slidesPerView: 3 },
+        //   1020: { slidesPerView: 4 },
+        // }}
         >
           {categories.map((category: any) => {
             return (

@@ -41,7 +41,7 @@ const UserInfoOrders = () => {
         return price=+ (parseInt( p.currentPrice)*parseInt(p.quantity)) +0
        })}
   return (
-    <div className='w-full bg-slate-50 h-[80vh] overflow-scroll p-6 rounded-xl '>
+    <div className='w-full bg-slate-50 h-[80vh] mx-2 overflow-scroll p-6 rounded-xl '>
     {
         Data?.map(
             (cart,index)=>{

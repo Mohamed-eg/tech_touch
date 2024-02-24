@@ -51,7 +51,7 @@ function UserInfoAddress() {
 
   return (
     <section className={classes.Main}>
-      <div className="w-full h-[80vh] rounded-xl bg-slate-50">
+      <div className="w-full h-[80vh] rounded-xl mx-2s bg-slate-50">
         <button className="rounded-full w-[40px] h-[40px] m-6 bg-scondry border-none" onClick={handleAdd}>➕</button><spa>Add address</spa>
       <table class="table w-full">
         <thead className="w-full">
