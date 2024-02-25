@@ -1,0 +1,50 @@
+{
+    "header": {
+        "topHeader": "Summer Sale For All Products And Free Express Delivery - OFF 50%!",
+        "topHeaderSpan": "Shop Now",
+        "navItems": {
+            "itemone": "Home",
+            "itemtwo": "Categories",
+            "itemthree": "Cart",
+            "itemfour": "About",
+            "profile": "Profile",
+            "wishList": "Wish List"
+        },
+        "search": "What are you looking for?"
+    },
+    "hero": {
+        "h2": "iPhone 14 Series",
+        "h1": "Up to 10% off Voucher",
+        "span": "Shop Now"
+    },
+    "categories": {
+        "title": "Categories",
+        "h1": "Browse By Category"
+    },
+    "products": {
+        "title": "Products",
+        "h1": "Explore Our Products"
+    },
+    "newArival": {
+        "title": "Categories"
+    },
+    "bestSelling": {
+        "title": "this month",
+        "h1": "Best Selling Products"
+    },
+    "subForm": {
+        "serviceTitle": "FREE AND FAST DELIVERY",
+        "serviceDescription": "Free delivery for all orders over $140",
+        "serviceTitle2": "24/7 CUSTOMER SERVICE",
+        "serviceDescription2": "Friendly 24/7 customer support",
+        "serviceTitle3": "MONEY BACK GUARANTEE",
+        "serviceDescription3": "We reurn money within 30 days",
+        "h1": "Subscribe Now To Get Services Best Of Us",
+        "blaceH": "Enter your email address",
+        "button": "Subscribe"
+    },
+    "footer": {
+        "discription": "Touch Tech is your one-stop shop for the latest and coolest gadgets. Explore our wide range of high-tech products and enjoy the best prices and service.",
+        "contact": "Contact info"
+    }
+}
