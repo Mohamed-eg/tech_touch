@@ -15,6 +15,8 @@ import { auth } from "../src/firebase/firebase";
 import { useDispatch } from 'react-redux';
 import { createList } from '../src/redux/slices/searchSlice';
 import { list } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
+import Hart from "./hart"
 
 interface NavItemProps {
   text: string;
@@ -25,12 +27,13 @@ interface NavItemProps {
 const NavItem: React.FC<NavItemProps> = ({ text, icon, href }) => {
   return (
     <Link href={href} className="flex items-center text-black">
-      <FontAwesomeIcon icon={icon} className="" />
+      <Hart /*className="w-[21px] h-[21px] text-[21px] max-md:w-[16px] max-md:h-[16px]" */ />
     </Link>
   );
 };
 
 const Nav = () => {
+  const [t, i18n] = useTranslation("global")
   // const uid = auth.currentUser?.uid
   const uid = useSelector((state: any) => state.categories.currentUser)
   const router = useRouter()
@@ -86,22 +89,22 @@ const Nav = () => {
             <Link
               className="cursor-pointer [text-decoration:none] relative leading-[24px] text-[inherit] hover:text-[#28a12e] focus:[text-decoration:underline]"
               href="/">
-              Home
+              {t("header.navItems.itemone")}
             </Link>
             <Link
               className="cursor-pointer [text-decoration:none] relative leading-[24px] text-[inherit] hover:text-[#28a12e] focus:[text-decoration:underline]"
               href="/categories">
-              Categories
+              {t("header.navItems.itemtwo")}
             </Link>
             <Link
               className="cursor-pointer [text-decoration:none] relative leading-[24px] text-[inherit] hover:text-[#28a12e] focus:[text-decoration:underline]"
               href={`/cart/id?id=${uid}`}>
-              Cart
+              {t("header.navItems.itemthree")}
             </Link>
             <Link
               className="cursor-pointer [text-decoration:none] relative leading-[24px] text-[inherit] hover:text-[#28a12e] focus:[text-decoration:underline]"
               href="/about">
-              About
+              {t("header.navItems.itemfour")}
             </Link>
           </ul>
         </nav>
@@ -110,28 +113,28 @@ const Nav = () => {
             <input
               className="[border:none] [outline:none] font-title-20px-semibold text-xs bg-secondary rounded-xl max-md:w-[30vw] max-md:placeholder:text-[9px] py-[7px] pr-3 pl-5 text-text2"
               id="searchNav"
-              placeholder="What are you looking for?"
+              placeholder={t("header.search")}
               type="text"
               onChange={(event) => setSearchComponentSetValue(event.target.value)}
             />
           </form>
           <div className="relative flex flex-row items-center justify-center gap-[2vw]">
 
-            <div className="relative w-6 h-6 max-sm:hidden text-[21px]">
+            <div className="relative w-[21px] h-[21px] max-sm:hidden text-[21px]">
               <NavItem text="" icon={faHeart} href="/wishList" />
               {List?.length ? <span className="bg-[#d61414] absolute top-[-12px] right-[-7px] px-1 text-sm text-white rounded-full ">{List.length || 0}</span> : null}
             </div>
 
-            <div className="relative w-6 h-6  max-sm:hidden" onClick={(e, id = uid) => { router.push(`/${id ? "EditProfile/uid?uid=" + id : "login"}`) }}>
+            <div className="relative w-[21px] h-[21px]  max-sm:hidden" onClick={(e, id = uid) => { router.push(`/${id ? "EditProfile/uid?uid=" + id : "login"}`) }}>
               <Image alt="img"
-                className="relative w-8 h-8 max-md:w-[5vw] overflow-hidden object-cover max-sm:hidden cursor-pointer"
+                className="relative w-[22px] h-[22px] max-md:w-[17px] overflow-hidden object-cover max-sm:hidden cursor-pointer"
                 src={userImg}
               />
               {uid ? <span className=" absolute flex w-3 h-3 bg-[#00cc00] rounded-full top-[-8px] right-[-50%]"></span> : <span className=" absolute flex w-3 h-3 bg-[#a7a7a7] rounded-full top-[-8px] right-[-50%]"></span>}
             </div>
-            <div className="relative w-6 h-6 max-sm:hidden">
+            <div className="relative w-[21px] h-[21px] max-sm:hidden">
               <Image alt="img"
-                className="relative w-8 h-8  max-md:w-[5vw] object-cover cursor-pointer"
+                className="relative w-[21px] h-[21px]  max-md:w-[17px] object-cover cursor-pointer"
                 src={buyImg}
                 onClick={onIconsCurvedBuyClick}
               />

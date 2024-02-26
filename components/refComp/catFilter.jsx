@@ -123,13 +123,13 @@ const myprameFu= (pram,opt)=>{
     }
   };
   const postSelectedFilter = async () => {
-    console.log( Rang[0], Rang[1],noColor?null:`${parseInt(color?.hex.substring(1), 16)}`,selectedPram,user?.userType,sortOption,Desc,Disc)
+    console.log( Rang[0], Rang[1],noColor?null:parseInt(color?.hex.substring(1), 16),selectedPram,user?.userType,sortOption,Desc,Disc)
     try {
       const response = await axios.post(`https://backend.touchtechco.com/filter?catId=${query}`,{
         "minPrice": Rang[0],
          "maxPrice": Rang[1],
          // can be null
-          "color": noColor?null:`${parseInt(color?.hex.substring(1), 16)}`, 
+          "color": noColor?null:parseInt(color?.hex.substring(1), 16), 
           // can be empty {}
           "parameters": selectedPram,
            "userType": "user", //user?.userType,
@@ -268,7 +268,7 @@ const myprameFu= (pram,opt)=>{
             <div className="flex flex-row w-full justify-between items-start">
               <div className="w-full">
                 <div className="w-full flex flex-row items-center justify-center flex-wrap">
-                  {catProd?null:<h1>there is no product matcheing</h1>}
+                  {catProd?null:<h1>there is no product matcheing 🤷🏻‍♀️</h1>}
                   {catProd
                     .map((p) => {
                       return (

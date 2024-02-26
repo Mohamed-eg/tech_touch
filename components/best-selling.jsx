@@ -6,8 +6,11 @@ import 'swiper/css';
 import {useState,useEffect} from "react"
 import axios from "axios";
 import Link from "next/link";
-import { auth } from "../src/firebase/firebase"
+import { auth } from "../src/firebase/firebase";
+import ReactLoading from 'react-loading';
+import { useTranslation } from "react-i18next";
 const BestSelling = () => {
+  const [t, i18n] = useTranslation("global")
  const userId = auth.currentUser?.uid
   const [data, setData] = useState([]);
   const fetchBest = async () => {
@@ -29,8 +32,8 @@ const BestSelling = () => {
         <div className="flex flex-col items-start justify-start gap-[60px]">
           <div className=" flex flex-row items-end justify-start gap-[611px]">
             <BestSellingProductsCard
-              sectionTitle="This Month"
-              pageTitle="Best Selling Products"
+              sectionTitle={t("bestSelling.title")}
+              pageTitle={t("bestSelling.h1")}
               propBackgroundColor="#0a5c99"
               propColor="#0a5c99"
               propMargin="0"
@@ -49,7 +52,7 @@ const BestSelling = () => {
             1440: { slidesPerView: 5 },
           }}
         >   
-        {data?null:<h1 className=" text-primary1">Loding....</h1>}
+        {data?null:<ReactLoading type={"spinningBubbles"} color={"#79d70a"} height={250} width={250} />}
           {data?.map(p=>{
             return (
               <SwiperSlide className="!mx-10 max-md:!mx-2 max-md:!w-[220px] max-md:!h-[220px]  !w-[250px]" key={`best-prode${p.id}`}>

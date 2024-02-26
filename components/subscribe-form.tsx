@@ -10,8 +10,9 @@ import deleveryImg3 from "../public/services@2x.png";
 import upArrow from "../public/frame@2x.png"
 import Rectangle from "../public/rectangle-133@2x.png"
 import Image from 'next/image'
-
+import { useTranslation } from "react-i18next";
 const SubscribeForm: NextPage = () => {
+  const [t, i18n] = useTranslation("global")
   const [enterYourEmailValue, setEnterYourEmailValue] = useState("");
   return (
     <div className=" w-full overflow-hidden flex flex-row items-start justify-between text-left text-xl text-text2 font-title-20px-semibold">
@@ -20,18 +21,18 @@ const SubscribeForm: NextPage = () => {
           <div className="flex flex-row max-md:flex-col items-center justify-around">
             <DeliveryContainer
               featureImageUrl={deleveryImg1}
-              serviceDescription="FREE AND FAST DELIVERY"
-              discreption="Free delivery for all orders over $140"
+              serviceDescription={t("subForm.serviceTitle")}
+              discreption={t("subForm.serviceDescription")}
             />
             <DeliveryContainer
               featureImageUrl={deleveryImg2}
-              serviceDescription="24/7 CUSTOMER SERVICE"
-              discreption="Friendly 24/7 customer support"
+              serviceDescription={t("subForm.serviceTitle2")}
+              discreption={t("subForm.serviceDescription2")}
             />
             <DeliveryContainer
               featureImageUrl={deleveryImg3}
-              serviceDescription="MONEY BACK GUARANTEE"
-              discreption="We reurn money within 30 days"
+              serviceDescription={t("subForm.serviceTitle3")}
+              discreption={t("subForm.serviceDescription3")}
             />
           </div>
           <section
@@ -48,14 +49,14 @@ const SubscribeForm: NextPage = () => {
               </div>
               <div className="my-0 mx-[!important] absolute  flex flex-col items-center justify-start gap-[26px] z-[1]">
                 <h1 className="m-0 relative text-inherit leading-[140%] max-md:leading-[100%] max-md:hidden max-sm:text-sm  font-bold font-inherit">
-                  Subscribe Now To Get Services Best Of Us
+                  {t("subForm.h1")}
                 </h1>
-                <div className="relative text-lg leading-[140%] font-semibold inline-block max-md:leading-[100%] max-md:text-md max-sm:text-sm max-sm:hidden w-full">{`Touch Tech is your one-stop shop for the latest and coolest gadgets. Explore our wide range of high-tech products and enjoy the best prices and service. `}</div>
+                {/* <div className="relative text-lg leading-[140%] font-semibold inline-block max-md:leading-[100%] max-md:text-md max-sm:text-sm max-sm:hidden w-full">{`Touch Tech is your one-stop shop for the latest and coolest gadgets. Explore our wide range of high-tech products and enjoy the best prices and service. `}</div> */}
                 <form className="m-0 rounded-xl bg-secondary-colors-white w-[37wv] flex flex-col items-end justify-end py-[5px] box-border">
                   <div className="w-full h-[3vw] flex flex-row items-center justify-start gap-[13vw]">
                     <input
                       className="[border:none] [outline:none] w-[80%] h-auto right-0 font-semibold font-nunito-sans text-mini bg-[transparent] relative text-primary1 text-left"
-                      placeholder="Enter your email address"
+                      placeholder={t("subForm.blaceH")}
                       type="text"
                       value={enterYourEmailValue}
                       onChange={(event) =>
@@ -63,7 +64,7 @@ const SubscribeForm: NextPage = () => {
                       }
                     />
                     <Property1Default1
-                      shopNow="Subscribe"
+                      shopNow={t("subForm.button")}
                       property1DefaultBackgroundColor="#0a5c99"
                       property1DefaultPadding="9.75px 31.5px"
                       property1DefaultBoxSizing="border-box"

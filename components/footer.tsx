@@ -18,7 +18,7 @@ import twitter from '../public/twitter@2x.png'
 import whatsApp from '../public/whatsapp@2x.png'
 import instagram from '../public/instagram@2x.png'
 import linkedIn from '../public/linkedin@2x.png'
-
+import { useTranslation } from "react-i18next";
 
 // touchTechLogoFinal2="/touch tech logo.png"
 // iconsCurvedLocation="/iconscurvedlocation.svg"
@@ -66,6 +66,8 @@ const FooterComp: NextPage<FrameComponentType> = ({
     };
   }, [iconsCurvedLocationObjectFit]);
 
+  const [t, i18n] = useTranslation("global")
+
   return (
     <div
       className="bg-foundation-blue-darker w-full z-0 h-[374px] flex flex-col items-center justify-center p-2.5 box-border text-left text-lg text-secondary-colors-white font-nunito-sans"
@@ -78,11 +80,9 @@ const FooterComp: NextPage<FrameComponentType> = ({
               className="relative w-[103px] h-[71px] object-cover"
               src={touchTechLogo}
             />
-            {/* <div className="relative leading-[150%] inline-block w-[307.5px]">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry&apos;s standard dummy text
-              ever since.
-            </div> */}
+            <div className="relative leading-[150%] inline-block w-[307.5px]">
+            {t("footer.discription")}
+            </div>
           </div>
           {/* <div className=" flex flex-col items-start justify-start gap-[24px]">
             <b className="relative leading-[140%]">Customer</b>
@@ -101,7 +101,7 @@ const FooterComp: NextPage<FrameComponentType> = ({
             </div>
           </div> */}
           <div className=" flex flex-col items-start justify-start gap-[24px]">
-            <b className="relative leading-[140%]">Contact Info</b>
+            <b className="relative leading-[140%]">{t("footer.contact")}</b>
             <div className=" flex flex-col items-start justify-start gap-[12px] text-mini text-steam-color">
               <div className=" flex flex-row items-center justify-start gap-[16px]">
                 <div className="rounded-[38.25px] bg-secondary-colors-white  flex flex-row items-start justify-start p-[8.5px]">
@@ -193,7 +193,7 @@ const FooterComp: NextPage<FrameComponentType> = ({
           <div className="relative box-border w-full h-[0.8px] border-t-[0.8px] border-solid border-steam-color" />
           <div className=" flex flex-row items-center justify-between w-full ">
             <div className="relative font-semibold">
-              {"@ 2023 DIVANO. All Rights Reserved"}
+              {"@ 2023 Touch Tech. All Rights Reserved"}
             </div>
             <div className=" flex flex-row items-start justify-start gap-[15px]">
               <Image alt="img"

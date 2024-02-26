@@ -10,11 +10,14 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import OnePageProdac from "./refComp/onePageProdac";
+import ReactLoading from 'react-loading';
+
 
 const AllProducts: NextPage = (props: any) => {
   const AllProducts = useSelector((state: any) => state.categories.allproducts);
+
   return (<>
-    {AllProducts ? null : <div><h1>Loding.....</h1></div>}
+    {AllProducts ? null : <ReactLoading type={"spinningBubbles"} color={"#79d70a"} height={250} width={250} />}
     <Swiper
       // ref={swiperRef}
       className="!flex justify-center items-cente max-md:!ml-0 mb-36 !w-[80vw]"
@@ -39,6 +42,7 @@ const AllProducts: NextPage = (props: any) => {
         src={rightArrow}
       />
       {AllProducts?.map((PageProducts: any) => {
+        { PageProducts ? null : <ReactLoading type={"spinningBubbles"} color={"#79d70a"} height={250} width={250} /> }
         return (
           <SwiperSlide className="!w-[100%]" key={`id${Math.random() * 10}`}>
             {({ isVisible }) => (

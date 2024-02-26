@@ -4,13 +4,15 @@ import { useSelector } from "react-redux";
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode, Navigation } from 'swiper/modules';
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import 'swiper/css';
 import 'swiper/css/navigation';
 import Link from "next/link";
-
+import ReactLoading from 'react-loading';
+import { useTranslation } from "react-i18next";
 const CategoryFilterContainer1: NextPage = () => {
-
+  const [t, i18n] = useTranslation("global")
+  // const [categories,setCategories]=useState()
   const categories = useSelector((state: any) => state.categories.allCategories)
   return (
     <div className=" flex flex-col items-start w-full justify-start gap-[60px] text-center text-base text-primary1 font-title-20px-semibold">
@@ -21,11 +23,11 @@ const CategoryFilterContainer1: NextPage = () => {
               <div className="absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] rounded bg-primary1" />
             </div>
             <div className="relative leading-[20px] max-sm:text-[14px] font-semibold">
-              Categories
+              {t("categories.title")}
             </div>
           </div>
           <h1 className="m-0 relative text-[2.5vw] max-sm:hidden tracking-[0.04em] leading-[48px] font-semibold font-heading-24px-semibold text-text2">
-            Browse By Category
+            {t("categories.h1")}
           </h1>
         </div>
         <div className=" flex flex-row items-start justify-start max-sm:w-[50%] max-sm:m-auto gap-[8px]">
@@ -61,7 +63,8 @@ const CategoryFilterContainer1: NextPage = () => {
         //   1020: { slidesPerView: 4 },
         // }}
         >
-          {categories.map((category: any) => {
+          {categories ? null : <ReactLoading type={"spinningBubbles"} color={"#79d70a"} height={250} width={250} />}
+          {categories?.map((category: any) => {
             return (
               <SwiperSlide className=" !w-[170px]" key={category.title}>
                 <Link href={`/categ/catId?catId=${category.id}`}>

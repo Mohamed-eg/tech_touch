@@ -29,35 +29,35 @@ const ProductDeltal = (producDeta: any) => {
   const isoDate = new Date(milliseconds).toISOString();
   const randomeId = uuidv4(); // ⇨ '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed'
   const [myproduct, setMyproduct] = useState({
-    "_id": "AhMb1EJXlqEnPaCB6v4L-1704645506555640",
-    "id": "AhMb1EJXlqEnPaCB6v4L-1704645506555640",
-    "title": "Mus.Adverto.Tero aqua.",
-    "shortDesc": "Seductor pre.Utor orbis.Opes habeo commodum otium.",
-    "longDesc": "Vulgo, cubicularius depulso, utrum. Obduro fabula.Iocus plures renuo, eum adeo pungo.Tergus pia. Edo, quantocius curto pro me, galea.",
-    "userPrice": 53.6070935043653,
-    "middlePrice": 62.93050684215157,
-    "traderPrice": 4.60530311251296,
+    "_id": "",
+    "id": "",
+    "title": "",
+    "shortDesc": "",
+    "longDesc": "",
+    "userPrice": 0,
+    "middlePrice": 0,
+    "traderPrice": 0,
     "colors": [
       {
         "color": "4279209220.0",
         "images": [
-          "https://picsum.photos/id/267/500/200",
-          "https://picsum.photos/id/666/500/200",
-          "https://picsum.photos/id/299/500/200",
-          "https://picsum.photos/id/786/500/200",
-          "https://picsum.photos/id/280/500/200",
-          "https://picsum.photos/id/621/500/200",
-          "https://picsum.photos/id/401/500/200",
-          "https://picsum.photos/id/900/500/200",
-          "https://picsum.photos/id/814/500/200",
-          "https://picsum.photos/id/546/500/200",
-          "https://picsum.photos/id/580/500/200",
-          "https://picsum.photos/id/802/500/200",
-          "https://picsum.photos/id/443/500/200"
+          "/loading.png",
+          "/loading.png",
+          "/loading.png",
+          "/loading.png",
+          "/loading.png",
+          "/loading.png",
+          "/loading.png",
+          "/loading.png",
+          "/loading.png",
+          "/loading.png",
+          "/loading.png",
+          "/loading.png",
+          "/loading.png"
         ]
       }
     ],
-    "categoryId": "yp5TPQn12lk0l4UKyj8b-1704629558972540",
+    "categoryId": "1",
     "discount": null
   })
 

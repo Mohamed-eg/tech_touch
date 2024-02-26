@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import { faBars, faHome, faShop, faStream, faCog, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import Link from 'next/link';
+import { useTranslation } from "react-i18next";
+
 
 interface NavItemProps {
   text: string;
@@ -26,6 +28,7 @@ const Sidebar: React.FC = () => {
   const uid = useSelector((state: any) => state.categories.currentUser)
   const List = useSelector((state: any) => state.wishList.List)
   const cart = useSelector((state: any) => state.products.cart)
+  const [t, i18n] = useTranslation("global")
 
   // const getTotalQuantity = () => {
   //   let total = 0
@@ -53,12 +56,12 @@ const Sidebar: React.FC = () => {
           {cart?.length === 0 ? null : <span className="bg-[#d61414] absolute top-[140px] right-[210px] px-1 text-white rounded-full ">{cart.length || 0}</span>}
 
           {List?.length ? <span className="bg-[#d61414] absolute top-[180px] right-[210px] px-1 text-sm text-white rounded-full ">{List.length || 0}</span> : null}
-          <NavItem text="Home" icon={faHome} href="/" />
-          <NavItem text="profile" icon={faUser} href={`/${uid ? "EditProfile/uid?uid=" + uid : "login"}`} />
-          <NavItem text="Categories" icon={faStream} href="/categories" />
-          <NavItem text="Cart" icon={faShop} href="/card" />
-          <NavItem text="wish list" icon={faHeart} href="/wishList" />
-          <NavItem text="About" icon={faCog} href="/about" />
+          <NavItem text={t("header.navItems.itemone")} icon={faHome} href="/" />
+          <NavItem text={t("header.navItems.profile")} icon={faUser} href={`/${uid ? "EditProfile/uid?uid=" + uid : "login"}`} />
+          <NavItem text={t("header.navItems.itemtwo")} icon={faStream} href="/categories" />
+          <NavItem text={t("header.navItems.itemthree")} icon={faShop} href="/card" />
+          <NavItem text={t("header.navItems.wishList")} icon={faHeart} href="/wishList" />
+          <NavItem text={t("header.navItems.itemfour")} icon={faCog} href="/about" />
         </nav>
       </div>
     </div>
